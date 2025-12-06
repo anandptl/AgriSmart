@@ -1,0 +1,60 @@
+# Java / Spring Boot Project
+
+# Ignore application.properties (sensitive data)
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+# Maven
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Local Maven Repository (dependencies)
+.m2/
+
+# Build folders
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# JRE / JDK System Files
+# JRE System Library (IDE specific)
+*.jre
+*.jre/lib/
+rebel.xml
+.classpath
+.project
+
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# STS (Spring Tool Suite)
+.apt_generated
+.factorypath
+.settings
+.springBeans
+.sts4-cache
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db

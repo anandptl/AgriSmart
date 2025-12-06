@@ -1,0 +1,499 @@
+:root {
+	--green: #38a169;
+	--side: #0d1b2a;
+}
+
+/* Base Styles */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+/* SIDEBAR */
+.sidebar {
+	width: 260px;
+	background: var(--side);
+	color: #fff;
+	padding: 25px 20px;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	transition: transform 0.3s ease-in-out;
+	z-index: 1000;
+}
+
+.sidebar.hidden {
+	transform: translateX(-100%);
+}
+
+/* Sidebar toggle button (hamburger) */
+.toggle-btn {
+	display: none;
+	position: fixed;
+	top: 18px;
+	left: 20px;
+	background: var(--side);
+	color: #fff;
+	border: none;
+	font-size: 22px;
+	border-radius: 6px;
+	padding: 6px 10px;
+	cursor: pointer;
+	z-index: 1100;
+}
+
+/* Brand Logo */
+.brand {
+	font-size: 20px;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+
+.brand i {
+	color: var(--green);
+}
+
+/* User Section */
+.user {
+	text-align: center;
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+
+/* Profile Image */
+.profile-photo-img {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 5px;
+}
+
+.profile-img {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	object-fit: cover;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+	transition: 0.3s;
+}
+
+.profile-img:hover {
+	transform: scale(1.05);
+}
+
+.avatar {
+	width: 60px;
+	height: 60px;
+	background: #38a169;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	font-size: 22px;
+	margin: auto;
+	margin-bottom: 8px;
+}
+
+/* Username / Phone */
+.user h3 {
+	font-size: 20px;
+}
+
+.user p {
+	padding-top: 5px;
+	font-size: 15px;
+	color: #9fb2c8;
+}
+
+/* MENU LINKS */
+.menu {
+	margin-top: 10px;
+}
+
+.menu a {
+	display: block;
+	padding: 12px;
+	border-radius: 8px;
+	color: #dfe7ef;
+	text-decoration: none;
+	margin-bottom: 8px;
+	transition: .3s;
+	cursor: pointer;
+}
+
+.menu a i {
+	margin-right: 10px;
+}
+
+.menu a:hover,
+.menu a.active {
+	background: var(--green);
+	color: #fff;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+	margin-top: auto;
+	padding: 12px;
+	border: none;
+	background: #ef4444;
+	color: #fff;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	transition: 0.3s;
+	text-decoration: none;
+}
+
+.logout-btn:hover {
+	background: #dc2626;
+	transform: scale(1.03);
+}
+
+/* --- MAIN CONTENT AREA --- */
+.main {
+	margin-left: 260px;
+	padding: 20px;
+	background-color: #f4f6f9;
+	min-height: 100vh;
+	transition: margin-left 0.3s ease-in-out;
+}
+
+.main-content {
+	display: flex;
+	gap: 20px;
+	background-color: #f4f6f9;
+	min-height: 100vh;
+}
+
+.main.expanded {
+	margin-left: 0;
+}
+
+.overlay {
+	display: none;
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 900;
+}
+
+.overlay.active {
+	display: block;
+}
+
+/* --- FILTER SECTION --- */
+.filter-section {
+	width: 280px;
+	background: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filter-header {
+	font-size: 18px;
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eee;
+}
+
+/* Search Input */
+.search-plant {
+	display: flex;
+	align-items: center;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 5px 10px;
+	margin-bottom: 20px;
+}
+
+.search-plant i {
+	color: #888;
+	margin-right: 10px;
+}
+
+.search-plant input {
+	border: none;
+	flex-grow: 1;
+	padding: 5px 0;
+	outline: none;
+}
+
+/* Filter Groups (Dropdowns) */
+.filter-group {
+	margin-bottom: 15px;
+}
+
+.filter-group label {
+	display: block;
+	font-size: 14px;
+	font-weight: 500;
+	color: #555;
+	margin-bottom: 5px;
+}
+
+.filter-group select {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	background-color: #fff;
+	appearance: none;
+	/* Remove default arrow */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23444%22%20d%3D%22M6%209L0%203h12z%22%2F%3E%3C%2Fsvg%3E");
+	background-repeat: no-repeat;
+	background-position: right 10px center;
+	cursor: pointer;
+}
+
+/* Clear Filters Button */
+.clear-filters-btn {
+	width: 100%;
+	padding: 10px;
+	background: none;
+	border: 1px solid var(--green);
+	color: var(--green);
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 15px;
+	margin-top: 10px;
+	transition: 0.3s;
+}
+
+.clear-filters-btn:hover {
+	background: var(--green);
+	color: #fff;
+}
+
+/* --- CROP RESULTS SECTION --- */
+.crop-results-section {
+	flex-grow: 1;
+}
+
+.results-header {
+	font-size: 16px;
+	font-weight: 500;
+	color: #555;
+	margin-bottom: 20px;
+}
+
+.crop-cards-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 20px;
+}
+
+/* --- CROP CARD STYLES --- */
+.crop-card {
+	background: #fff;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+.crop-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-image-wrapper {
+	position: relative;
+	height: 180px;
+}
+
+.card-image-wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Tags and Rating */
+.crop-tag {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	padding: 4px 8px;
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: 600;
+	color: #fff;
+	z-index: 10;
+}
+
+.kharif-tag {
+	background-color: #f97316;
+}
+
+/* Orange */
+.rabi-tag {
+	background-color: #0ea5e9;
+}
+
+/* Blue */
+.all-season-tag {
+	background-color: #84cc16;
+}
+
+/* Lime Green */
+.perennial-tag {
+	background-color: #7c3aed;
+}
+
+/* Violet */
+.cash-crop-tag {
+	background-color: #059669;
+}
+
+/* Emerald */
+
+
+.rating {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: rgba(0, 0, 0, 0.5);
+	color: #fff;
+	padding: 4px 8px;
+	border-radius: 5px;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.rating i {
+	color: #facc15;
+	/* Yellow star */
+}
+
+/* Card Content */
+.card-content {
+	padding: 15px;
+}
+
+.card-content h3 {
+	font-size: 20px;
+	margin-bottom: 3px;
+	color: #1f2937;
+}
+
+.scientific-name {
+	font-style: italic;
+	font-size: 14px;
+	color: #6b7280;
+	margin-bottom: 8px;
+}
+
+.description {
+	font-size: 14px;
+	color: #4b5563;
+	margin-bottom: 15px;
+	min-height: 40px;
+	/* Ensures consistent card height */
+}
+
+.details-row {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 8px;
+	border-top: 1px solid #eee;
+	padding-top: 8px;
+}
+
+.detail-item {
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	font-weight: 500;
+	color: #333;
+}
+
+.detail-item i {
+	margin-right: 5px;
+	color: var(--green);
+}
+
+.water-need i {
+	color: #3b82f6;
+}
+
+/* Blue for water */
+.duration i {
+	color: #f97316;
+}
+
+/* Orange for clock */
+.yield i {
+	color: #10b981;
+}
+
+/* Emerald for yield */
+
+/* Difficulty Badges */
+.detail-item.difficulty {
+	padding: 3px 8px;
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.easy-diff {
+	background-color: #d1fae5;
+	color: #059669;
+}
+
+/* Light Green/Green */
+.medium-diff {
+	background-color: #fef3c7;
+	color: #d97706;
+}
+
+/* Light Yellow/Orange */
+.hard-diff {
+	background-color: #fee2e2;
+	color: #dc2626;
+}
+
+/* Light Red/Red */
+
+/* --- RESPONSIVENESS --- */
+/* ======== RESPONSIVE ======== */
+@media (max-width: 992px) {
+	.sidebar {
+		transform: translateX(-100%);
+	}
+
+	.sidebar.active {
+		transform: translateX(0);
+	}
+
+	.toggle-btn {
+		display: block;
+	}
+
+	.main {
+		margin-left: 0;
+		padding-top: 60px;
+		/* Space for toggle button */
+	}
+}

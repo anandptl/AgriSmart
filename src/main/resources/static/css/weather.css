@@ -1,0 +1,537 @@
+:root {
+    /* सामान्य रंग */
+    --main-bg: #eef1f6;
+    --card-bg: #ffffff;
+    --text-color: #1a202c;
+    --secondary-text: #6b7280;
+    --accent-green: #38a169;
+    --accent-orange: #f6ad55;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    --border-radius: 16px;
+    --hourly-blue: #4a5c86;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;	
+	font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+	    
+}
+
+body {
+    background-color: var(--main-bg);
+    color: var(--text-color);
+    padding: 0;
+    overflow-x: hidden; 
+}
+
+.container {
+    max-width: 90%; /* अधिकतम चौड़ाई 1200px */
+    margin: 90px auto 20px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Navbar styles (No change) */
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 15px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(26, 32, 44, 0.9);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.logo a{
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--accent-orange);
+}
+
+.language-select {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.language-select option {
+  color: var(--text-color);
+  background: #fff;
+}
+
+.login-btn {
+  padding: 10px 22px;
+  background: var(--accent-green);
+  border-radius: 35px;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: .3s;
+}
+
+.login-btn:hover {
+  background: #2f855a;
+  transform: scale(1.03);
+}
+
+/* --- 1. Header Styling (No change) --- */
+.header {
+    padding: 10px 0;
+    width: 100%; 
+}
+
+.header form{
+	width: 100%;
+}
+
+.search-bar {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    padding: 8px 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.3s;
+}
+
+.search-bar:focus-within {
+    box-shadow: 0 8px 30px rgba(56, 161, 105, 0.3);
+}
+
+.search-bar i {
+    color: var(--secondary-text);
+    margin-right: 12px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    flex-grow: 1;
+    font-size: 17px;
+    padding: 5px 0;
+    color: var(--text-color);
+}
+
+.location-btn {
+    background-color: var(--accent-green);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 15px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.location-btn:hover {
+    background-color: #2f855a;
+}
+
+/* --- 2. Main Content Styling --- */
+.main-content {
+    /* Requirement 2: Right-col (forecast) will naturally go below left-col */
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 25px;
+    width: 100%;
+}
+
+/* सामान्य कार्ड स्टाइल */
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    min-width: 0; 
+}
+
+/* लेफ्ट कॉलम कार्ड्स (Left-col) - Updated */
+.left-col {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    min-width: 0; 
+    flex-wrap: wrap; 
+}
+
+/* Time Card & Current Weather Card in horizontal layout */
+.time-card {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-basis: 350px; 
+    flex-grow: 1;
+}
+
+/* Current Weather Card when placed next to time card */
+.left-col .current-weather-card {
+    flex-grow: 2; 
+    flex-basis: 500px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.5fr;
+    gap: 30px;
+}
+
+.city-name {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--accent-green);
+}
+
+.current-time {
+    font-size: 70px; 
+    font-weight: 700;
+    margin: 10px 0 0 0;
+    color: var(--text-color);
+}
+
+.current-date {
+    font-size: 18px; 
+    color: var(--secondary-text);
+    margin-top: 5px; 
+    font-weight: 500;
+}
+
+/* 10-Day Forecast Card (Horizontal Scroll) */
+.forecast-card {
+    overflow: hidden; 
+}
+
+.forecast-card h3 {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--text-color);
+}
+
+.forecast-list.horizontal-scroll {
+    display: flex;
+    overflow-x: auto; 
+    gap: 15px;
+    padding-bottom: 15px; 
+    -webkit-overflow-scrolling: touch; 
+    scrollbar-width: thin; 
+    scrollbar-color: var(--accent-green) var(--main-bg); 
+    white-space: nowrap; 
+}
+
+/* Scrollbar styles (No change) */
+.forecast-list.horizontal-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.forecast-list.horizontal-scroll::-webkit-scrollbar-thumb {
+    background: var(--accent-green);
+    border-radius: 10px;
+}
+
+.forecast-list.horizontal-scroll::-webkit-scrollbar-track {
+    background: #e0e0e0;
+    border-radius: 10px;
+}
+
+.forecast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+    min-width: 110px;
+    background-color: #f7f9fc;
+    border-radius: 12px;
+    text-align: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.forecast-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.forecast-item .date-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.forecast-item .weather-icon-small {
+    width: 40px;
+    height: 40px;
+    margin: 5px 0;
+}
+
+.forecast-item .temp-range {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent-orange);
+    margin-top: 5px;
+}
+
+.forecast-item .condition-text {
+    font-size: 11px;
+    color: var(--secondary-text);
+    margin-top: 5px;
+    white-space: normal;
+    word-break: break-word;
+}
+
+
+/* राइट कॉलम कार्ड्स (Right-col) - Now naturally below left-col */
+.right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    min-width: 0;
+}
+
+.temp-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-right: 20px;
+    border-right: 1px solid #eee;
+}
+
+.main-temp {
+    font-size: 60px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.feels-like {
+    font-size: 16px;
+    color: var(--secondary-text);
+    margin-bottom: 20px;
+}
+
+.sun-times {
+    font-size: 15px;
+    color: var(--secondary-text);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sun-times div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sun-times i {
+    color: var(--accent-orange);
+    margin-right: 5px;
+}
+
+.sun-times span {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.weather-icon-info {
+    text-align: center;
+}
+
+.large-icon-img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.details-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 15px;
+    font-size: 14px;
+    color: var(--secondary-text);
+    padding-left: 20px;
+    border-left: 1px solid #eee;
+}
+
+.detail-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.detail-row i {
+    color: var(--accent-green);
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.detail-row span:nth-child(2) {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.label {
+    font-size: 15px;
+    margin-top: 0px;
+}
+
+
+/* ALERT BOX */
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+/* --- मीडिया क्वेरीज़ (Responsive Design) --- */
+@media (max-width: 1024px) {
+    /* 1024px से नीचे, left-col को vertical stack में वापस लाओ */
+    .left-col {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    /* current-weather-card को left-col में वापस अपनी पुरानी ग्रिड पर सेट करो */
+    .left-col .current-weather-card {
+        grid-template-columns: 1fr 1fr;
+        flex-basis: auto;
+    }
+
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .temp-info {
+        border-right: none;
+        padding-right: 0;
+        grid-column: 1 / -1;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .sun-times {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 10px;
+    }
+    
+    .details-info {
+        grid-column: 1 / -1; 
+        border-left: none;
+        padding-left: 0;
+        justify-items: center;
+    }
+    
+    .detail-row {
+        align-items: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    
+    .left-col .current-weather-card {
+        grid-template-columns: 1fr;
+    }
+    
+    .weather-icon-info {
+        order: -1;
+    }
+
+    .details-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-bar {
+        padding: 8px 15px;
+    }
+    .location-btn {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin-top: 100px;
+        gap: 15px;
+        padding: 0 10px;
+    }
+    
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px 15px;
+    }
+    
+    .nav-links {
+        width: 100%;
+        justify-content: space-around;
+        order: 3;
+        margin-top: 10px;
+    }
+    .logo, .login-btn {
+        flex-shrink: 0;
+        margin: 5px 0;
+    }
+
+    .card {
+        padding: 20px;
+    }
+    
+    .current-time {
+        font-size: 56px;
+    }
+}

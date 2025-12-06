@@ -1,0 +1,333 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
+}
+
+/* BACKGROUND */
+body {
+    min-height: 100vh;
+    /* height: 100vh; */
+    background: linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .2)), url('../Image/Morning.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 90px;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 60px;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, .45);
+    backdrop-filter: blur(6px);
+    color: white;
+    z-index: 999;
+}
+
+.nav-logo a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.index-btn {
+    padding: 10px 30px;
+    background: #38a169;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+}
+
+/* LOGIN BOX */
+.login-box {
+    width: 430px;
+    background: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, .4);
+    padding: 25px 40px;
+    border-radius: 25px;
+    color: white;
+}
+
+/* Logo + Heading */
+.logo-box {
+    font-size: 48px;
+    color: #38a169;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+/* TAB switch */
+.switch-btn {
+    display: flex;
+    background: rgba(255, 255, 255, .35);
+    padding: 4px;
+    border-radius: 25px;
+    margin-bottom: 15px;
+}
+
+.switch-btn button {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.switch-btn button.active {
+    background: white;
+    color: black;
+    border-radius: 20px;
+}
+
+/* Google button */
+.google-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 25px;
+    background: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    /* spacing between icon & text */
+    transition: 0.3s;
+}
+
+.google-btn img {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* Hover animation upgrade */
+.google-btn:hover {
+    background: #f1f1f1;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Divider line */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, .4);
+}
+
+.divider span {
+    padding: 0 10px;
+}
+
+/* Inputs */
+.input-box {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, .15);
+    border-radius: 14px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.input-box i {
+    margin-right: 10px;
+    color: #fff;
+}
+
+.input-box input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: white;
+    outline: none;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, .7);
+}
+
+.name-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.otp-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.otp-row .input-button:first-child {
+    flex: 7;
+    /* 70% */
+}
+
+.otp-row .input-button:last-child {
+    flex: 3;
+    /* 30% */
+}
+
+/* OTP button styling */
+.otp-button a {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background: #38a169;
+    border-radius: 14px;
+    display: block;
+    margin-top: 16px;
+}
+
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+label {
+    display: block;
+    margin-bottom: 4px;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 14px;
+}
+
+/* Eye toggle */
+.password-box {
+    position: relative;
+}
+
+.toggle-eye {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #ffffffc9;
+}
+
+/* Responsive */
+@media(max-width:480px) {
+    .login-box {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.options a {
+    color: #f6c945;
+    text-decoration: none;
+}
+
+.options a:hover {
+    color: #ffbf00;
+    text-decoration: none;
+}
+
+
+
+/* Sign In Button */
+.signin-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    background: #38a169;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 18px;
+    width: 100%;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.signin-btn:hover {
+    background: #21ba69;
+}
+
+/* Sign Up Link */
+.signup-text {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.signup-text a {
+    color: #f6c945;
+    text-decoration: none;
+}
+
+.signup-text a:hover {
+    color: #ffbf00;
+    text-decoration: none;
+}
+
+.input-box select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.input-box select option {
+    color: black;
+}
