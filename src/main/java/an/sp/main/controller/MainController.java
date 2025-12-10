@@ -13,6 +13,7 @@ import an.sp.main.entities.UsersEntity;
 import an.sp.main.service.ProfileService;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class MainController {
 
@@ -95,18 +96,6 @@ public class MainController {
 		model.addAttribute("profile", profile);
 		return "Crop-Sugges";
 	}
-	
-//	@GetMapping("/FarmerPrice")
-//	public String MandiPrices(HttpSession session, Model model) {
-//		UsersEntity user = (UsersEntity) session.getAttribute("user");
-//		if (user == null) {
-//			return "redirect:/login";
-//		}
-//
-//		UserProfile profile = profileService.getProfileByUserId(user.getId());
-//		model.addAttribute("profile", profile);
-//		return "Farmer-Price";
-//	}
 	
 	
 // buyers controllers

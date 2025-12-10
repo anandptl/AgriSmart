@@ -1,14 +1,17 @@
 package an.sp.main.controller;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Map;
 
 import an.sp.main.entities.UserProfile;
 import an.sp.main.entities.UsersEntity;
@@ -16,6 +19,7 @@ import an.sp.main.service.ProfileService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/weather")
 public class WeatherController {
 
 	@Autowired
@@ -27,8 +31,8 @@ public class WeatherController {
 	@Value("${weather.api.url}")
 	private String baseUrl;
 
-//	weather Api for Farmers....
-	@GetMapping("/Fweather")
+// weather Api for Farmers....
+	@GetMapping("/farmer")
 	public String FweathePage(HttpSession session, Model model, @RequestParam(required = false) String city) {
 
 		UsersEntity user = (UsersEntity) session.getAttribute("user");
@@ -43,8 +47,9 @@ public class WeatherController {
 			if (city == null || city.trim().isEmpty()) {
 				city = profile != null && profile.getCity() != null ? profile.getCity() : "Ghaziabad";
 			}
-
-			String api = baseUrl + "?key=" + apiKey + "&q=" + city + "&days=10";
+			
+			String encodedCity = URLEncoder.encode(city.trim(), StandardCharsets.UTF_8);
+			String api = baseUrl + "?key=" + apiKey + "&q=" + encodedCity + "&days=10";
 			RestTemplate rest = new RestTemplate();
 			Map<String, Object> response = rest.getForObject(api, Map.class);
 
@@ -61,7 +66,7 @@ public class WeatherController {
 	}
 	
 //	WEather controller for the Buyers..
-	@GetMapping("/buyer-weather")
+	@GetMapping("/buyer")
 	public String BuyerweathePage(HttpSession session, Model model, @RequestParam(required = false) String city) {
 
 		UsersEntity user = (UsersEntity) session.getAttribute("user");
@@ -77,7 +82,9 @@ public class WeatherController {
 				city = profile != null && profile.getCity() != null ? profile.getCity() : "Ghaziabad";
 			}
 
-			String api = baseUrl + "?key=" + apiKey + "&q=" + city + "&days=10";
+			String encodedCity = URLEncoder.encode(city.trim(), StandardCharsets.UTF_8);
+			String api = baseUrl + "?key=" + apiKey + "&q=" + encodedCity + "&days=10";
+			
 			RestTemplate rest = new RestTemplate();
 			Map<String, Object> response = rest.getForObject(api, Map.class);
 
@@ -103,7 +110,8 @@ public class WeatherController {
 		}
 
 		try {
-			String api = baseUrl + "?key=" + apiKey + "&q=" + city + "&days=10";
+			String encodedCity = URLEncoder.encode(city.trim(), StandardCharsets.UTF_8);
+			String api = baseUrl + "?key=" + apiKey + "&q=" + encodedCity + "&days=10";
 
 			RestTemplate rest = new RestTemplate();
 			Map<String, Object> response = rest.getForObject(api, Map.class);
@@ -126,14 +134,14 @@ public class WeatherController {
 		
 		UsersEntity user = (UsersEntity) session.getAttribute("user");
 		if (user == null) {
-			return "redirect:/weather";
+			return "redirect:/weather/weather";
 		}
 
 		switch (user.getRole().toUpperCase()) {
-        case "FARMER": return "redirect:/Fweather";
-        case "BUYER": return "redirect:/buyer-weather";
-		}
+        case "FARMER": return "redirect:/weather/farmer";
+        case "BUYER":  return "redirect:/weather/buyer";
+        }
 
-		return "Weather";
+		return "redirect:/weather/weather";
 	}
 }

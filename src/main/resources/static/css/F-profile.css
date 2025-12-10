@@ -162,14 +162,14 @@ label {
 }
 
 /* MAIN PROFILE AREA */
-.profile-area {
+.main {
 	margin-left: var(--sidebar-width);
 	flex: 1;
 	padding: 28px 32px;
 	transition: margin-left 0.3s ease-in-out;
 }
 
-.profile-area.expanded {
+.main.expanded {
 	margin-left: 0;
 }
 
@@ -177,7 +177,7 @@ label {
 	background: white;
 	padding: 30px;
 	border-radius: 15px;
-	max-width: 600px;
+	max-width: 700px;
 	margin: auto;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
 }
@@ -319,7 +319,7 @@ label {
 		display: block;
 	}
 
-	.profile-area {
+	.main {
 		margin-left: 0;
 		padding-top: 60px;
 		/* Space for toggle button */

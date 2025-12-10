@@ -1,4 +1,6 @@
-<%@page contentType="text/html;charset=UTF-8" language="java" %> <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html;charset=UTF-8" language="java" %> 
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="en">
 	<head>
@@ -6,7 +8,7 @@
 		<meta content="width=device-width,initial-scale=1" name="viewport" />
 		<title>AgriSmart | Farmer-Dashboard</title>
 		<link href="/css/dashboard.css" rel="stylesheet" />
-		<link href="http://scdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 		<script src="http://scdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	</head>
 	<body>
@@ -14,25 +16,25 @@
 			<% if (session.getAttribute("user")==null) { response.sendRedirect(request.getContextPath() + "/login" ); return; } %>
 			<script>
 				<c:if test="${not empty Successfull}">
-				                            Swal.fire({
-				                            icon: 'success',
-				                            title: 'Success',
-				                            text: '${Successfull}',
-				                            timer: 3000,
-				                            timerProgressBar: true,
-				                            confirmButtonColor: '#3085d6'
-				                            });
-				                          </c:if>
-				                          <c:if test="${not empty Error}">
-				                            Swal.fire({
-				                            icon: 'error',
-				                            title: 'Error',
-				                            text: '${Error}',
-				                            timer: 3000,
-				                            timerProgressBar: true,
-				                            confirmButtonColor: '#d33'
-				                            });
-				                          </c:if>
+	                Swal.fire({
+	                icon: 'success',
+	                title: 'Success',
+	                text: '${Successfull}',
+	                timer: 3000,
+	                timerProgressBar: true,
+	                confirmButtonColor: '#3085d6'
+	                });
+	              </c:if>
+	              <c:if test="${not empty Error}">
+	                Swal.fire({
+	                icon: 'error',
+	                title: 'Error',
+	                text: '${Error}',
+	                timer: 3000,
+	                timerProgressBar: true,
+	                confirmButtonColor: '#d33'
+	                });
+              </c:if>
 			</script>
 			<button class="toggle-btn" onclick="toggleSidebar()">
 				<i class="fa-solid fa-bars"></i>
@@ -57,39 +59,15 @@
 					<p>${profile.phone}</p>
 				</div>
 				<ul class="menu">
-					<a class="active">
-						<i class="fa-solid fa-chart-line"></i>
-						<span>Dashboard</span>
-					</a>
-					<a href="/Far-profile">
-						<i class="fa-solid fa-user-gear"></i>
-						<span>My Profile</span>
-					</a>
-					<a href="/Fweather">
-						<i class="fa-solid fa-cloud-sun"></i>
-						<span>Weather</span>
-					</a>
-					<a href="/crop-Sugges">
-						<i class="fa-solid fa-seedling"></i>
-						<span>Crop Suggestions</span>
-					</a>
-					<a href="/crop-Process">
-						<i class="fa-solid fa-seedling"></i>
-						<span>Crop Process</span>
-					</a>
-					<a href="crop-diseases.html">
-						<i class="fa-solid fa-virus"></i>
-						<span>Crop Diseases</span>
-					</a>
-					<a href="/FarmerPrice">
-						<i class="fa-solid fa-indian-rupee-sign"></i>
-						<span>Crop Prices</span>
-					</a>
-					<a href="buyers.html">
-						<i class="fa-solid fa-store"></i>
-						<span>Buyers</span>
-					</a>
-				</ul>
+                    <a href="#" class="active"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
+                    <a href="/Far-profile"><i class="fa-solid fa-user-gear"></i>My Profile</a>
+                    <a href="/weather/farmer"><i class="fa-solid fa-cloud-sun"></i>Weather</a>
+                    <a href="/crop-Sugges" ><i class="fa-solid fa-seedling"></i>Crop Suggestions</a>
+					<a href="/crop-Process"><i class="fa-solid fa-seedling"></i><span>Crop Process</span></a>
+                    <a href="#"><i class="fa-solid fa-virus"></i></i>Crop Diseases</a>
+                    <a href="/Price/farmer"><i class="fa-solid fa-indian-rupee-sign"></i>Crop Prices</a>
+                    <a href="#"><i class="fa-solid fa-store"></i>Buyers</a>
+                </ul>
 				<a href="/logout" class="logout-btn">
 					<i class="fa-solid fa-right-from-bracket"></i>
 					Logout

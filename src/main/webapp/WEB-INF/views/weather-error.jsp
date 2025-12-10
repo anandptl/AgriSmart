@@ -22,7 +22,7 @@
   <div class="error-box">
     <h2>⚠️ Oops! Something went wrong.</h2>
     <p>${message}</p>
-    <a href="/errorWeather">🔁 Try Again</a>
+    <a href="/weather/errorWeather">🔁 Try Again</a>
   </div>
 </body>
 </html>

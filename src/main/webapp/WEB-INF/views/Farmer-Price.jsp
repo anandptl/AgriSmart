@@ -50,11 +50,12 @@
 			</div>
 
 			<ul class="menu">
-				<a><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a>
+				<a href="/dashboard"><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a>
 				<a href="/Far-profile"><i class="fa-solid fa-user-gear"></i><span>My Profile</span></a>
-				<a href="/Fweather"><i class="fa-solid fa-cloud-sun"></i><span>Weather</span></a>
+				<a href="/weather/farmer"><i class="fa-solid fa-cloud-sun"></i><span>Weather</span></a>
 				<a href="/crop-Sugges"><i class="fa-solid fa-seedling"></i><span>Crop Suggestions</span></a>
 				<a href="/crop-Process"><i class="fa-solid fa-seedling"></i><span>Crop Process</span></a>
+				<a href="#"><i class="fa-solid fa-virus"></i></i>Crop Diseases</a>
 				<a href="#" class="active"><i class="fa-solid fa-indian-rupee-sign"></i><span>Crop Prices</span></a>
 				<a href="buyers.html"><i class="fa-solid fa-store"></i><span>Buyers</span></a>
 			</ul>

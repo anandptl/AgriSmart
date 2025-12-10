@@ -64,13 +64,9 @@
 
                 <ul class="menu">
 					<a href="/buyer-dashboard"><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a>
-
 					<a class="active"><i class="fa-solid fa-user-gear"></i><span>My Profile</span></a>
-
-					<a href="/buyer-weather"><i class="fa-solid fa-cloud-sun"></i><span>Weather</span></a>
-
+					<a href="/weather/buyer"><i class="fa-solid fa-cloud-sun"></i><span>Weather</span></a>
 					<a href="prices.html"><i class="fa-solid fa-indian-rupee-sign"></i><span>Crop Prices</span></a>
-
 					<a href="/farmer-list"><i class="fa-solid fa-person-digging"></i><span>Farmers Details</span></a>
                 </ul>
 
@@ -78,7 +74,7 @@
             </aside>
 
             <!-- MAIN PROFILE FORM -->
-            <main class="profile-area">
+            <main class="main">
                 <div class="profile-card">
                     <h2>Manage Profile</h2>
 					

@@ -28,9 +28,9 @@
           <li><a href="#hero">Home</a></li>
           <li><a href="#crops">Crops</a></li>
           <li><a href="#tools">Tools</a></li>
-		  <li><a href="/weather">Weather</a></li>
-		  <li><a href="/contact">Contact Us</a></li>
-		  <li><a href="#hero">About Us</a></li>
+          <li><a href="/weather/weather">Weather</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+          <li><a href="#hero">About Us</a></li>
           <li>
             <select class="language-select" id="languageSelect">
               <option value="en">English</option>

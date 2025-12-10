@@ -70,11 +70,11 @@
                 <ul class="menu">
                     <a href="/dashboard"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
                     <a href="/Far-profile"><i class="fa-solid fa-user-gear"></i>My Profile</a>
-                    <a href="/Fweather"><i class="fa-solid fa-cloud-sun"></i>Weather</a>
+                    <a href="/weather/farmer"><i class="fa-solid fa-cloud-sun"></i>Weather</a>
                     <a href="#" class="active"><i class="fa-solid fa-seedling"></i>Crop Suggestions</a>
 					<a href="/crop-Process"><i class="fa-solid fa-seedling"></i><span>Crop Process</span></a>
                     <a href="#"><i class="fa-solid fa-virus"></i></i>Crop Diseases</a>
-                    <a href="/FarmerPrice"><i class="fa-solid fa-indian-rupee-sign"></i>Crop Prices</a>
+                    <a href="/Price/farmer"><i class="fa-solid fa-indian-rupee-sign"></i>Crop Prices</a>
                     <a href="#"><i class="fa-solid fa-store"></i>Buyers</a>
                 </ul>
 

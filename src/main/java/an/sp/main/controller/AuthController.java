@@ -1,5 +1,7 @@
 package an.sp.main.controller;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +78,9 @@ public class AuthController {
 
 				city = farmer != null && farmer.getCity() != null ? farmer.getCity() : "Ghaziabad";
 
-				String api = baseUrl + "?key=" + apiKey + "&q=" + city + "&days=10";
+				String encodedCity = URLEncoder.encode(city.trim(), StandardCharsets.UTF_8);
+				String api = baseUrl + "?key=" + apiKey + "&q=" + encodedCity + "&days=10";
+				
 				RestTemplate rest = new RestTemplate();
 				Map<String, Object> response = rest.getForObject(api, Map.class);
 
@@ -91,7 +95,9 @@ public class AuthController {
 
 				city = buyer != null && buyer.getCity() != null ? buyer.getCity() : "Ghaziabad";
 
-				String api1 = baseUrl + "?key=" + apiKey + "&q=" + city + "&days=10";
+				String encodedCity1 = URLEncoder.encode(city.trim(), StandardCharsets.UTF_8);
+				String api1 = baseUrl + "?key=" + apiKey + "&q=" + encodedCity1 + "&days=10";
+				
 				RestTemplate rest1 = new RestTemplate();
 				Map<String, Object> response1 = rest1.getForObject(api1, Map.class);
 
