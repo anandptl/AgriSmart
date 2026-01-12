@@ -1,15 +1,20 @@
 package an.sp.main.controller;
 
+import java.util.List;
 import java.util.Map;
 
+import an.sp.main.repository.BuyersDetailsRepo;
+import an.sp.main.service.buyersDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import an.sp.main.entities.UserProfile;
 import an.sp.main.entities.UsersEntity;
+import an.sp.main.entities.buyerCropEntity;
 import an.sp.main.service.ProfileService;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +24,11 @@ public class MainController {
 
 	@Autowired
 	private ProfileService profileService;
-	
+
+	@Autowired
+	private  buyersDetailsService buyersDetailsService;
+
+
 	@Value("${weather.api.key}")
 	private String apiKey;
 
@@ -96,9 +105,43 @@ public class MainController {
 		model.addAttribute("profile", profile);
 		return "Crop-Sugges";
 	}
-	
-	
-// buyers controllers
+// This controller used in framer page to find the buyers
+	@GetMapping("/buyers-details")
+	public String buyersDetails(HttpSession session, Model model) {
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+
+		UserProfile profile = profileService.getProfileByUserId(user.getId());
+		model.addAttribute("profile", profile);
+
+		model.addAttribute("buyers", buyersDetailsService.getAllBuyers());
+		return "buyers-details";
+	}
+//  This controller used for find the particuler buyers by City & crop name..
+	@GetMapping("/farmer/buyers/search")
+	public String searchBuyers(HttpSession session,
+			@RequestParam(required = false) String district,
+			@RequestParam(required = false) String crop,
+			Model model) {
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+
+		UserProfile profile = profileService.getProfileByUserId(user.getId());
+		model.addAttribute("profile", profile);
+
+		List<UserProfile> buyers = buyersDetailsService.searchBuyers(district, crop);
+
+		model.addAttribute("buyers", buyers);
+		return "buyers-details";
+	}
+
+
+
+	// buyers controllers
 	@GetMapping("/buyer-dashboard")
 	public String BuyerDashboard(HttpSession session, Model model, String city) {
 		UsersEntity user = (UsersEntity) session.getAttribute("user");
@@ -134,6 +177,9 @@ public class MainController {
 
 		UserProfile profile = profileService.getProfileByUserId(user.getId());
 		model.addAttribute("profile", profile);
+
+		buyerCropEntity crop = buyersDetailsService.getCropById(user.getId());
+		model.addAttribute("buyerCrop", crop);
 		return "buyer-profile";
 	}
 	

@@ -48,7 +48,7 @@
 					<div class="profile-photo-img">
 						<c:choose>
 							<c:when test="${not empty profile and not empty profile.profilePhoto}">
-								<img src="/user/photo/${profile.id}" alt="Profile Photo" class="profile-img" id="previewImg" />
+								<img src="/user/photo/${profile.user.id}" alt="Profile Photo" class="profile-img" id="previewImg" />
 							</c:when>
 							<c:otherwise>
 								<div class="avatar"><i class="fa-solid fa-user"></i></div>
@@ -66,7 +66,7 @@
 					<a href="/crop-Process"><i class="fa-solid fa-seedling"></i><span>Crop Process</span></a>
                     <a href="#"><i class="fa-solid fa-virus"></i></i>Crop Diseases</a>
                     <a href="/Price/farmer"><i class="fa-solid fa-indian-rupee-sign"></i>Crop Prices</a>
-                    <a href="#"><i class="fa-solid fa-store"></i>Buyers</a>
+                    <a href="/buyers-details"><i class="fa-solid fa-store"></i>Buyers</a>
                 </ul>
 				<a href="/logout" class="logout-btn">
 					<i class="fa-solid fa-right-from-bracket"></i>

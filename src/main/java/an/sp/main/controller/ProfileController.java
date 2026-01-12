@@ -2,6 +2,8 @@ package an.sp.main.controller;
 
 import an.sp.main.entities.UserProfile;
 import an.sp.main.entities.UsersEntity;
+import an.sp.main.entities.buyerCropEntity;
+import an.sp.main.repository.BuyersDetailsRepo;
 import an.sp.main.service.ProfileService;
 import an.sp.main.service.AuthService;
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +25,10 @@ public class ProfileController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private BuyersDetailsRepo buyersDetailsRepo;
+
 
     @PostMapping("/updateProfile")
     public String updateProfile(@RequestParam("village") String village,
@@ -92,6 +98,11 @@ public class ProfileController {
             					@RequestParam("pincode") String pincode,
             					@RequestParam("phone") String phone,
                                 @RequestParam("language") String language,
+                                // 🔥 Crops
+                                @RequestParam("crop1") String crop1,
+                                @RequestParam(value = "crop2", required = false) String crop2,
+                                @RequestParam(value = "crop3", required = false) String crop3,
+
                                 @RequestParam("profilePhoto") MultipartFile file,
                                 HttpSession session,
                                 RedirectAttributes redirectAttributes) {
@@ -110,6 +121,18 @@ public class ProfileController {
                 profile.setUser(loggedInUser);
             }
 
+            // Buyer crop save / update
+            buyerCropEntity crop = buyersDetailsRepo.findByUser_Id(loggedInUser.getId());
+            if (crop == null) {
+                crop = new buyerCropEntity();
+                crop.setUser(loggedInUser);
+            }
+            crop.setCrop1(crop1);
+            crop.setCrop2(crop2);
+            crop.setCrop3(crop3);
+
+            buyersDetailsRepo.save(crop);
+
          // Save Address Fields
             profile.setVillage(village);
             profile.setCity(city);
@@ -119,18 +142,13 @@ public class ProfileController {
             profile.setPincode(pincode);
             profile.setPhone(phone);
 
-            // Save Language
-//            profile.setLanguage(language);
-
-            // Save Photo if uploaded
             if (!file.isEmpty()) {
                 profile.setProfilePhoto(file.getBytes());
                 profile.setProfilePhotoName(file.getOriginalFilename());
             }
 
             profileService.save(profile);
-
-//            loggedInUser.setPhone(phone);
+//          loggedInUser.setPhone(phone);
             loggedInUser.setLanguage(language);
             authService.register(loggedInUser);
             session.setAttribute("user", loggedInUser);

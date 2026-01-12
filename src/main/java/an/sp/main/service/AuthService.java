@@ -10,9 +10,13 @@ import org.springframework.stereotype.Service;
 import an.sp.main.entities.UsersEntity;
 import an.sp.main.repository.UserRepository;
 import an.sp.main.util.JwtUtil;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class AuthService {
+	
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     private UserRepository repo;
@@ -72,7 +76,6 @@ public class AuthService {
     
     
 //    send otp for the password forgat........
-//    --------------------------------------------
     
     public String sendOtp(String email) {
 
@@ -120,5 +123,44 @@ public class AuthService {
         return true;
     }
 
+    
+//    Signup otp 
+    public String sendSignupOtp(String email) {
 
+        // Check if already registered
+        if (repo.findByEmail(email) != null) {
+            return "Email already registered!";
+        }
+
+        String otp = String.valueOf(100000 + new Random().nextInt(900000));
+
+        // Save OTP temporarily in session OR cache
+        session.setAttribute("signupOtp", otp);
+        session.setAttribute("signupOtpTime", new Date());
+        session.setAttribute("signupEmail", email);
+
+        emailService.sendSignupOtp(email, otp);
+
+        return "OTP is being sent. Check your email in a few seconds.";
+    }
+    
+    public boolean verifySignupOtp(String email, String otp) {
+
+        String sessionOtp = (String) session.getAttribute("signupOtp");
+        Date otpTime = (Date) session.getAttribute("signupOtpTime");
+        String sessionEmail = (String) session.getAttribute("signupEmail");
+
+        if (sessionOtp == null || otpTime == null) return false;
+        if (!email.equals(sessionEmail)) return false;
+        if (!otp.equals(sessionOtp)) return false;
+
+        long expiry = otpTime.getTime() + 5 * 60 * 1000;
+        boolean valid = new Date().getTime() <= expiry;
+
+        if (valid) {
+            session.setAttribute("signupOtpVerified", true);
+        }
+
+        return valid;
+    }
 }

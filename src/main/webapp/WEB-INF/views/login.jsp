@@ -140,19 +140,21 @@
                 </div>
               </div>
             </div>
-
+			
+			<p id="otpStatus" style="color:#2ecc71; font-weight: 600;"></p>
+			
             <div class="otp-row">
               <div class="input-button">
                 <label>Email</label>
                 <div class="input-box">
                   <i class="fas fa-envelope"></i>
-                  <input type="email" name="email" placeholder="Enter your email" required>
+                  <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required>
                 </div>
               </div>
               <div class="input-button">
-                <label></label>
+				<label></label>
                 <div class="otp-button">
-                  <a href="/auth/">Sent OTP</a>
+					<button type="button" onclick="sendSignupOtp()">Send OTP</button>
                 </div>
               </div>
             </div>
@@ -162,13 +164,13 @@
                 <label>Enter OTP</label>
                 <div class="input-box">
                   <i class="fas fa-envelope"></i>
-                  <input type="text" name="otp" placeholder="Enter OTP" required>
+                  <input type="text" id="signupOtp" name="otp" placeholder="Enter OTP" required>
                 </div>
               </div>
               <div class="input-button">
                 <label></label>
                 <div class="otp-button">
-                  <a href="/auth/">Verify OTP</a>
+					<button type="button" onclick="verifySignupOtp()">Verify OTP</button>
                 </div>
               </div>
             </div>
@@ -194,7 +196,7 @@
 
             <small>Password must be at least 8 characters long</small>
 
-            <button class="signin-btn" type="submit" onclick="">Create Account</button>
+			<button class="signin-btn" type="submit" id="createAccountBtn" style="display:none;">Create Account</button>
 
             <p class="signup-text">Already have an account? <a id="goSignin" href="#">Sign in here</a></p>
 

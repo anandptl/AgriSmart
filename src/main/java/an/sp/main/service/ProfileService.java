@@ -12,10 +12,12 @@ public class ProfileService {
     private UserProfileRepository repo;
 
     public UserProfile getProfileByEmail(String email){
+
         return repo.findByUser_Email(email);
     }
 //    
     public UserProfile getProfileByUserId(Long userId){
+
         return repo.findByUser_Id(userId);
     }
 

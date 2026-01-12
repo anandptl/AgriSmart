@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import an.sp.main.entities.UserProfile;
@@ -24,6 +26,9 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
+	
+    @Autowired
+    private HttpSession session;
 
 	@Autowired
 	private AuthService authService;
@@ -36,9 +41,17 @@ public class AuthController {
 
 	@Value("${weather.api.url}")
 	private String baseUrl;
+	
 
 	@PostMapping("/signup")
 	public String signup(@ModelAttribute UsersEntity user, Model model) {
+		
+	    Boolean otpVerified = (Boolean) session.getAttribute("signupOtpVerified");
+
+	    if (otpVerified == null || !otpVerified) {
+	        model.addAttribute("Error", "Please verify OTP before signup");
+	        return "login";
+	    }
 
 		UsersEntity existing = authService.getByEmail(user.getEmail());
 
@@ -48,6 +61,12 @@ public class AuthController {
 		}
 
 		boolean status = authService.register(user);
+		
+	    session.removeAttribute("signupOtp");
+	    session.removeAttribute("signupOtpTime");
+	    session.removeAttribute("signupEmail");
+	    session.removeAttribute("signupOtpVerified");
+		
 		if (status) {
 			model.addAttribute("Successfull", "Account Created! Please Login.");
 		} else {
@@ -116,7 +135,7 @@ public class AuthController {
 
 		} catch (Exception e) {
 			model.addAttribute("Error", e.getMessage());
-			model.addAttribute("Error", "Something went wrong");
+//			model.addAttribute("Error", "Something went wrong");
 			System.out.println(e);
 			return "login";
 		}
@@ -174,4 +193,38 @@ public class AuthController {
 		model.addAttribute("Successfull", "Password reset successfully!");
 		return "login";
 	}
+	
+//	Ajex Signup controller 
+	
+	@PostMapping("/send-otp")
+	@ResponseBody
+	public Map<String, String> sendSignupOtp(@RequestBody Map<String, String> request) {
+
+	    String email = request.get("email");
+	    String msg = authService.sendSignupOtp(email);
+
+	    if (msg.contains("already")) {
+	        return Map.of("status", "error", "message", msg);
+	    }
+
+	    return Map.of("status", "success", "message", msg);
+	}
+	
+	@PostMapping("/signup-verify-otp")
+	@ResponseBody
+	public Map<String, String> verifySignupOtp(@RequestBody Map<String, String> request) {
+
+	    boolean valid = authService.verifySignupOtp(
+	        request.get("email"),
+	        request.get("otp")
+	    );
+
+	    if (!valid) {
+	        return Map.of("status", "error", "message", "Invalid or expired OTP");
+	    }
+
+	    return Map.of("status", "success", "message", "OTP verified");
+	}
+
+
 }

@@ -1,77 +1,95 @@
 package an.sp.main.controller;
 
+import java.util.Map;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import an.sp.main.entities.UserProfile;
 import an.sp.main.entities.UsersEntity;
 import an.sp.main.service.ProfileService;
+import an.sp.main.service.PriceService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/Price")
 public class PriceController {
 
-	@Autowired
-	private ProfileService profileService;
+    @Autowired
+    private ProfileService profileService;
 
-//	@Autowired
-//	private PriceService priceService;
+    @Autowired
+    private PriceService priceService;
 
-	// @Value("${price.api.key}")
-	// private String apiKey;
+    @GetMapping("/farmer")
+    public String farmerPage(HttpSession session, Model model) {
 
-	// @Value("${price.api.url}")
-	// private String baseUrl;
-	@GetMapping("/farmer")
-	public String pricePage(HttpSession session, Model model) {
-			UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null) {
-			return "redirect:/login";
-		}
+        UsersEntity user = (UsersEntity) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
 
-		// Profile Show
-		UserProfile profile = profileService.getProfileByUserId(user.getId());
-		model.addAttribute("profile", profile);
-		return"Farmer-Price";
-	}
-	
+        // Profile show
+        UserProfile profile = profileService.getProfileByUserId(user.getId());
+        model.addAttribute("profile", profile);
+        model.addAttribute("user", user);
 
-	// @GetMapping("/Pfarmer")
-	// public String cropPricePage(HttpSession session, Model model, @RequestParam(required = false) String crop) {
+        // Crops to display on page open (change list if needed)
+        List<String> cropsToShow = Arrays.asList("Wheat", "Paddy", "Cotton", "Maize", "Sugarcane");
 
-	// 	UsersEntity user = (UsersEntity) session.getAttribute("user");
-	// 	if (user == null) {
-	// 		return "redirect:/login";
-	// 	}
+        // Map: cropName -> API response (Map) OR null on error
+        Map<String, Object> allCropPrices = new LinkedHashMap<>();
+        for (String cropName : cropsToShow) {
+            try {
+                Map<String, Object> cropData = priceService.fetchCropPrice(cropName);
+                allCropPrices.put(cropName, cropData);
+            } catch (Exception e) {
+                e.printStackTrace();
+                allCropPrices.put(cropName, null);
+            }
+        }
 
-	// 	// Profile Show
-	// 	UserProfile profile = profileService.getProfileByUserId(user.getId());
-	// 	model.addAttribute("profile", profile);
+        model.addAttribute("allCropPrices", allCropPrices);
+        model.addAttribute("pricesFetchedAt", java.time.Instant.now().toString());
 
-		// try {
-		// 	// Agar crop type kiya to scraping kare
-		// 	if (crop != null && !crop.isEmpty()) {
-		// 		crop = "Rice";
-		// 	}
-			
-		// 	String encodedCrop = URLEncoder.encode(crop.trim(), StandardCharsets.UTF_8);
-	        
-		// 	String api = baseUrl + "?key=" + apiKey + "&crop=" + encodedCrop + "&format=json";
+        return "Farmer-Price";
+    }
 
-		// 	RestTemplate rest = new RestTemplate();
-			
-		// 	Map<String, Object> cropData = rest.getForObject(api, Map.class);
-			
-		// 	model.addAttribute("cropData", cropData);
-			
-		// } catch (Exception e) {
-		// 	System.out.println(e);
-		// }
+    @GetMapping("/farmerCrop")
+    public String farmerCropSearch(HttpSession session,
+                                   Model model,
+                                   @RequestParam(required = false) String crop) {
+        UsersEntity user = (UsersEntity) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
 
-	// 	return "Farmer-Price"; // JSP Page Name
-	// }
+        // Profile show
+        UserProfile profile = profileService.getProfileByUserId(user.getId());
+        model.addAttribute("profile", profile);
+        model.addAttribute("user", user);
+
+        if (crop == null || crop.trim().isEmpty()) {
+            crop = "Paddy";
+        }
+
+        String chosenCrop = crop.trim();
+        try {
+            Map<String, Object> cropData = priceService.fetchCropPrice(chosenCrop);
+            model.addAttribute("cropData", cropData);
+            model.addAttribute("selectedCrop", chosenCrop);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("apiError", "Price API error: " + e.getMessage());
+        }
+
+        return "Farmer-Price";
+    }
 }

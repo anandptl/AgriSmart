@@ -60,7 +60,7 @@
 		<div class="profile-photo-img">
 		<c:choose>
 			<c:when test="${not empty profile and not empty profile.profilePhoto}">
-				<img id="previewImg" class="profile-img" src="/user/photo/${profile.id}" alt="Profile Photo">
+				<img id="previewImg" class="profile-img" src="/user/photo/${profile.user.id}" alt="Profile Photo">
 			</c:when>
 			<c:otherwise>
 				<div class="avatar"><i class="fa-solid fa-user"></i></div>
@@ -75,8 +75,8 @@
         <a class="active"><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a>
         <a href="/buyer-profile"><i class="fa-solid fa-user-gear"></i><span>My Profile</span></a>
         <a href="/weather/buyer"><i class="fa-solid fa-cloud-sun"></i><span>Weather</span></a>
-		    <a href="prices.html"><i class="fa-solid fa-indian-rupee-sign"></i><span>Crop Prices</span></a>
-		    <a href="/farmer-list"><i class="fa-solid fa-person-digging"></i><span>Farmers Details</span></a>
+        <a href="prices.html"><i class="fa-solid fa-indian-rupee-sign"></i><span>Crop Prices</span></a>
+		<a href="/farmer-list"><i class="fa-solid fa-person-digging"></i><span>Farmers Details</span></a>
       </ul>
       <!-- Logout Button Bottom -->
       <a href="/logout" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>

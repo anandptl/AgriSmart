@@ -51,7 +51,7 @@
 					<div class="profile-photo-img">
 						<c:choose>
 							<c:when test="${not empty profile and not empty profile.profilePhoto}">
-								<img id="previewImg" class="profile-img" src="/user/photo/${profile.id}" alt="Profile Photo">
+								<img id="previewImg" class="profile-img" src="/user/photo/${profile.user.id}" alt="Profile Photo">
 							</c:when>
 							<c:otherwise>
 								<div class="avatar"><i class="fa-solid fa-user"></i></div>
@@ -81,7 +81,7 @@
 					<div class="profile-photo-container">
 					    <c:choose>
 					        <c:when test="${not empty profile and not empty profile.profilePhoto}">
-					            <img id="previewImg" class="profile-photo" src="/user/photo/${profile.id}" alt="Profile Photo">
+					            <img id="previewImg" class="profile-photo" src="/user/photo/${profile.user.id}" alt="Profile Photo">
 					        </c:when>
 					        <c:otherwise>
 					            <img id="previewImg" class="profile-photo" src="/images/default-user.png" alt="Default Photo">
@@ -167,6 +167,23 @@
 					            <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
 					        </div>
 					    </div>
+
+                        <div class="Crop-group">
+                            <div>
+                                <label><i class="fa-solid fa-seedling"></i> Crop 1</label>
+                                <input type="text" name="crop1" value="${buyerCrop.crop1}" required>
+                            </div>
+
+                            <div>
+                                <label><i class="fa-solid fa-seedling"></i> Crop 2</label>
+                                <input type="text" name="crop2" value="${buyerCrop.crop2}">
+                            </div>
+
+                            <div>
+                                <label><i class="fa-solid fa-seedling"></i> Crop 3</label>
+                                <input type="text" name="crop3" value="${buyerCrop.crop3}">
+                            </div>
+                        </div>
 
 					    <div class="button-row">
 					        <button class="save-btn">

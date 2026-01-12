@@ -30,14 +30,14 @@ public class SecurityConfig {
          .authorizeHttpRequests(auth -> auth
              .anyRequest().permitAll()  // allow all requests
          )
-         .csrf(csrf -> csrf.disable()) // disable CSRF (for forms/testing)
-         .formLogin(login -> login.disable()) // disable Spring Security login
-         .httpBasic(basic -> basic.disable()) // disable basic auth
+         .csrf(csrf -> csrf.disable())
+         .formLogin(login -> login.disable()) 
+         .httpBasic(basic -> basic.disable())
          .logout(logout -> logout
-             .logoutUrl("/logout")                 // endpoint for logout
-             .logoutSuccessUrl("/login")                // redirect to your login page
-             .invalidateHttpSession(true)          // clear session
-             .deleteCookies("JSESSIONID")          // remove JSESSIONID cookie
+             .logoutUrl("/logout")
+             .logoutSuccessUrl("/login")
+             .invalidateHttpSession(true)
+             .deleteCookies("JSESSIONID")
          );
 
         // Add JWT Filter before UsernamePasswordAuthenticationFilter

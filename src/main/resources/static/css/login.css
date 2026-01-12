@@ -44,6 +44,10 @@ body {
     text-decoration: none;
 }
 
+.index-btn:hover {
+    background: #21ba69;
+}
+
 /* LOGIN BOX */
 .login-box {
     width: 430px;
@@ -215,7 +219,7 @@ input::placeholder {
 }
 
 /* OTP button styling */
-.otp-button a {
+.otp-button button {
     width: 100%;
     padding: 10px;
     text-align: center;
@@ -224,7 +228,14 @@ input::placeholder {
     background: #38a169;
     border-radius: 14px;
     display: block;
-    margin-top: 16px;
+	margin-top: 18px;
+	border: none;
+}
+
+.otp-button button:hover {
+    background: #21ba69;
+	cursor: pointer;
+	cursor: pointer;
 }
 
 .input-group label {
@@ -299,6 +310,7 @@ label {
 
 .signin-btn:hover {
     background: #21ba69;
+	cursor: pointer;
 }
 
 /* Sign Up Link */

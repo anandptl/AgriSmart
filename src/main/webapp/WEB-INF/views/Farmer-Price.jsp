@@ -37,7 +37,7 @@
 				<div class="profile-photo-img">
 					<c:choose>
 						<c:when test="${not empty profile.profilePhoto}">
-							<img id="previewImg" class="profile-img" src="/user/photo/${profile.id}"
+							<img id="previewImg" class="profile-img" src="/user/photo/${profile.user.id}"
 							     alt="Profile Photo">
 						</c:when>
 						<c:otherwise>
@@ -57,7 +57,7 @@
 				<a href="/crop-Process"><i class="fa-solid fa-seedling"></i><span>Crop Process</span></a>
 				<a href="#"><i class="fa-solid fa-virus"></i></i>Crop Diseases</a>
 				<a href="#" class="active"><i class="fa-solid fa-indian-rupee-sign"></i><span>Crop Prices</span></a>
-				<a href="buyers.html"><i class="fa-solid fa-store"></i><span>Buyers</span></a>
+				<a href="/buyers-details"><i class="fa-solid fa-store"></i><span>Buyers</span></a>
 			</ul>
 
 			<a href="/logout" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
@@ -70,8 +70,129 @@
 					<h1>Mandi Prices (₹/Quintal)</h1>
 					<p>Today’s indicative market prices for major crops.</p>
 				</div>
+				
+				<!--<div class="price-grid">
+				  <c:forEach var="entry" items="${allCropPrices}">
+				    <c:set var="cropName" value="${entry.key}" />
+				    <c:set var="cropData" value="${entry.value}" />
 
+				    <%-- choose icon color class based on crop name --%>
+				    <c:choose>
+				      <c:when test="${cropName == 'Wheat'}"><c:set var="iconColor" value="green" /></c:when>
+				      <c:when test="${cropName == 'Rice'}"><c:set var="iconColor" value="blue" /></c:when>
+				      <c:when test="${cropName == 'Cotton'}"><c:set var="iconColor" value="amber" /></c:when>
+				      <c:when test="${cropName == 'Maize'}"><c:set var="iconColor" value="green" /></c:when>
+				      <c:when test="${cropName == 'Sugarcane'}"><c:set var="iconColor" value="blue" /></c:when>
+				      <c:otherwise><c:set var="iconColor" value="gray" /></c:otherwise>
+				    </c:choose>
+
+				    <%-- choose icon class --%>
+				    <c:choose>
+				      <c:when test="${cropName == 'Wheat'}"><c:set var="iconClass" value="fa-wheat-awn" /></c:when>
+				      <c:when test="${cropName == 'Rice'}"><c:set var="iconClass" value="fa-bowl-rice" /></c:when>
+				      <c:when test="${cropName == 'Cotton'}"><c:set var="iconClass" value="fa-shirt" /></c:when>
+				      <c:when test="${cropName == 'Maize'}"><c:set var="iconClass" value="fa-corn" /></c:when>
+				      <c:when test="${cropName == 'Sugarcane'}"><c:set var="iconClass" value="fa-droplet" /></c:when>
+				      <c:otherwise><c:set var="iconClass" value="fa-leaf" /></c:otherwise>
+				    </c:choose>
+
+				    <div class="price-card">
+				      <div class="price-left">
+				        <div class="price-icon ${iconColor}"><i class="fa-solid ${iconClass}"></i></div>
+				        <div class="price-name">${cropName}</div>
+				      </div>
+
+				      <div class="price-rate">
+				        <%-- Prefer simplified key if controller produced it --%>
+				        <c:choose>
+				          <c:when test="${not empty cropData and not empty cropData.displayPrice}">
+				            ₹ <c:out value="${cropData.displayPrice}" />
+				          </c:when>
+
+				          <%-- Try common top-level fields --%>
+				          <c:when test="${not empty cropData and not empty cropData.modal_price}">
+				            ₹ <c:out value="${cropData.modal_price}" />
+				          </c:when>
+
+				          <c:when test="${not empty cropData and not empty cropData.price}">
+				            ₹ <c:out value="${cropData.price}" />
+				          </c:when>
+
+				          <%-- If API returns a 'records' array, take first record's modal_price / price --%>
+				          <c:when test="${not empty cropData and not empty cropData.records}">
+				            <c:choose>
+				              <c:when test="${not empty cropData.records[0].modal_price}">
+				                ₹ <c:out value="${cropData.records[0].modal_price}" />
+				              </c:when>
+				              <c:when test="${not empty cropData.records[0].price}">
+				                ₹ <c:out value="${cropData.records[0].price}" />
+				              </c:when>
+				              <c:otherwise>
+				                N/A
+				              </c:otherwise>
+				            </c:choose>
+				          </c:when>
+
+				          <c:otherwise>
+				            N/A
+				          </c:otherwise>
+				        </c:choose>
+				      </div>
+				    </div>
+
+				  </c:forEach>
+				</div>-->
+				
 				<div class="price-grid">
+				  <c:forEach var="entry" items="${allCropPrices}">
+				    <c:set var="cropName" value="${entry.key}" />
+				    <c:set var="resp" value="${entry.value}" />
+
+				    <%-- decide iconColor / iconClass same as before --%>
+
+				    <div class="price-card">
+				      <div class="price-left">
+				        <div class="price-icon ${iconColor}">
+				          <i class="fa-solid ${iconClass}"></i>
+				        </div>
+
+				        <div class="price-name">${cropName}</div>
+				      </div>
+
+				      <div class="price-rate">
+				        <c:choose>
+				          <%-- 1) if response contains 'records' array and first record has modal_price or price field --%>
+				          <c:when test="${not empty resp and not empty resp.records}">
+				            <c:set var="rec" value="${resp.records[0]}" />
+				            <c:choose>
+				              <c:when test="${not empty rec.modal_price}">
+				                ₹ <c:out value="${rec.modal_price}" />
+				              </c:when>
+				              <c:when test="${not empty rec.price}">
+				                ₹ <c:out value="${rec.price}" />
+				              </c:when>
+				              <c:otherwise>
+				                N/A
+				              </c:otherwise>
+				            </c:choose>
+				          </c:when>
+
+				          <%-- 2) fallback if API returned a direct 'price' field --%>
+				          <c:when test="${not empty resp and not empty resp.price}">
+				            ₹ <c:out value="${resp.price}" />
+				          </c:when>
+
+				          <c:otherwise>
+				            N/A
+				          </c:otherwise>
+				        </c:choose>
+				      </div>
+				    </div>
+				  </c:forEach>
+				</div>
+
+
+				<!--<div class="price-grid">
 					<div class="price-card">
 						<div class="price-left">
 							<div class="price-icon green"><i class="fa-solid fa-wheat-awn"></i></div>
@@ -111,7 +232,7 @@
 						</div>
 						<div class="price-rate">₹ 350</div>
 					</div>
-				</div>
+				</div> -->
 			</section>
 
 			<!-- Search Section -->
@@ -119,7 +240,7 @@
 				<h2>Search Crop Price</h2>
 				<p>Enter crop name to get real-time mandi price.</p>
 
-				<form action="/FarmerPrice" method="GET">
+				<form action="/Price/farmerCrop" method="GET">
 					<div class="search-box">
 						<input type="text" name="crop" placeholder="Enter crop (Wheat, Rice)">
 						<button type="submit">Search</button>
@@ -145,30 +266,6 @@
 	</div>
 
 	<script src="/js/toggle.js"></script>
-	<script>
-		function searchCrop() {
-		    let crop = document.getElementById("cropInput").value.trim().toLowerCase();
-		    if (!crop) return;
-
-		    const crops = {
-		        "wheat": { img: "/img/crops/wheat.jpg", price: 2450 },
-		        "rice": { img: "/img/crops/rice.jpg", price: 3180 },
-		        "cotton": { img: "/img/crops/cotton.jpg", price: 6550 },
-		        "maize": { img: "/img/crops/maize.jpg", price: 2050 },
-		        "sugarcane": { img: "/img/crops/sugarcane.jpg", price: 350 }
-		    };
-
-		    if (crops[crop]) {
-		        document.getElementById("cropImg").src = crops[crop].img;
-		        document.getElementById("cropName").innerText = crop.toUpperCase();
-		        document.getElementById("cropPrice").innerText = "₹ " + crops[crop].price + " / Quintal";
-
-		        document.getElementById("searchResult").classList.remove("hidden");
-		    } else {
-		        Swal.fire("Not Found!", "No data available for this crop", "warning");
-		    }
-		}
-		</script>
 
 </body>
 </html>
