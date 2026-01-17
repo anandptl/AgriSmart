@@ -159,7 +159,7 @@
       <div class="tools-grid">
 
         <div class="tool-card">
-		<a href="/weather">
+		<a href="/weather/weather">
           <div class="tool-icon sky-bg"><i class="fas fa-cloud-sun"></i></div>
           <h3>10-Day Weather Forecast</h3>
           <p>Get weather-based farming recommendations</p>

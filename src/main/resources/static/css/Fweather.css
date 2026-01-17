@@ -175,6 +175,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
+  width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.4);
   z-index: 900;
 }
@@ -188,9 +189,11 @@ body {
 /*-----------Main area---------*/
 .main {
 	flex: 1;
-	padding: 28px 32px;
-	margin-left: 260px;
+	padding: 20px;
+	margin-left: var(--sidebar-width);
 	transition: margin-left 0.3s ease-in-out;
+	width: 100%;
+    min-width: 0;
 }
 
 .main.expanded {
@@ -534,4 +537,90 @@ body {
 		padding-top: 60px;
 		/* Space for toggle button */
 	}
+}
+
+@media (max-width: 1024px) {
+    .current-weather-card {
+        grid-template-columns: 1fr 1fr; /* Stack into two columns for tablets */
+    }
+    .details-info {
+        grid-column: span 2; /* Move details to bottom */
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        padding-left: 0;
+    }
+    .weather-icon-info {
+        border-right: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .toggle-btn {
+        display: block; /* Show hamburger */
+    }
+
+    .main {
+        margin-left: 0;
+        padding-top: 80px;
+    }
+
+    .left-col {
+        flex-direction: column; /* Stack Time and Weather cards */
+    }
+
+    .time-card, .current-weather-card {
+        flex-basis: 100%;
+    }
+
+    .current-weather-card {
+        grid-template-columns: 1fr; /* Total vertical stack on mobile */
+        text-align: center;
+    }
+
+    .temp-info, .weather-icon-info, .details-info {
+        padding: 0;
+        border: none;
+        align-items: center;
+    }
+
+    .sun-times div {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .details-info {
+        grid-template-columns: 1fr 1fr; /* Keep details in 2 columns */
+        gap: 20px;
+    }
+
+    .current-time {
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar {
+        padding: 5px 15px;
+    }
+
+    .location-btn span {
+        display: none; /* Hide "Search" text on tiny screens */
+    }
+
+    .location-btn i {
+        display: block; /* Show icon only */
+        margin: 0;
+    }
+
+    .main-temp {
+        font-size: 40px;
+    }
 }

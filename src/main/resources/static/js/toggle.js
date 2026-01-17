@@ -1,15 +1,12 @@
 const sidebar = document.querySelector(".sidebar");
-const main = document.querySelector(".main");
-
-const overlay = document.createElement('div');
-overlay.className = 'overlay';
-document.body.appendChild(overlay);
+const overlay = document.querySelector(".overlay");
 
 function toggleSidebar() {
-  sidebar.classList.toggle("active");
-  main.classList.toggle("expanded");
-  overlay.classList.toggle("active");
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
 }
 
-overlay.addEventListener('click', toggleSidebar);
-
+overlay.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+});

@@ -10,16 +10,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class buyersDetailsService {
+public class buyersFarmerDetailsService {
     @Autowired
     private BuyersDetailsRepo buyersDetailsRepo;
 
     @Autowired
     private UserProfileRepository userProfileRepository;
 
+    //  Find all buyers
     public List<UserProfile> getAllBuyers() {
 
         return userProfileRepository.findAllBuyers();
+    }
+//    find all farmers
+    public List<UserProfile> getAllFarmers() {
+
+        return userProfileRepository.findAllFarmer();
     }
 
     public buyerCropEntity getCropById(Long userId){

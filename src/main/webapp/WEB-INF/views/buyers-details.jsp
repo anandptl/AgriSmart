@@ -9,7 +9,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>AgriSmart | Buyers Details</title>
-	<link rel="stylesheet" href="/css/buyers-details.css" />
+	<link rel="stylesheet" href="/css/buyers-farmer-details.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -100,8 +100,8 @@
 
                             <div class="buyer-info">
                                 <h3>${b.user.firstName} ${b.user.lastName}</h3>
-                                <p>📞 ${b.phone}</p>
-                                <p>📍 ${b.village} ${b.city} ${b.district}</p>
+                                <p><i class="fa-solid fa-phone"></i> ${b.phone}</p>
+                                <p><i class="fa-solid fa-location-dot"></i> ${b.village} ${b.city} ${b.district}</p>
                                 <span class="crop">
                                     ${b.user.buyerCrop.crop1}
 
@@ -117,8 +117,8 @@
                             </div>
 
                             <div class="actions">
-                                <a href="tel:${b.phone}" class="call-btn">Call Buyer</a>
-                                <a href="https://wa.me/${b.phone}" class="msg-btn">Send Message</a>
+                                <a href="tel:${b.phone}" class="call-btn"><i class="fa-solid fa-phone"></i> Call Buyer</a>
+                                <a href="https://wa.me/${b.phone}" class="msg-btn"><i class="fa-brands fa-whatsapp"></i> Send Message</a>
                             </div>
 
                         </div>

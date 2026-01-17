@@ -3,8 +3,7 @@ package an.sp.main.controller;
 import java.util.List;
 import java.util.Map;
 
-import an.sp.main.repository.BuyersDetailsRepo;
-import an.sp.main.service.buyersDetailsService;
+import an.sp.main.service.buyersFarmerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -26,7 +25,7 @@ public class MainController {
 	private ProfileService profileService;
 
 	@Autowired
-	private  buyersDetailsService buyersDetailsService;
+	private  buyersFarmerDetailsService buyersFarmerDetailsService;
 
 
 	@Value("${weather.api.key}")
@@ -116,7 +115,7 @@ public class MainController {
 		UserProfile profile = profileService.getProfileByUserId(user.getId());
 		model.addAttribute("profile", profile);
 
-		model.addAttribute("buyers", buyersDetailsService.getAllBuyers());
+		model.addAttribute("buyers", buyersFarmerDetailsService.getAllBuyers());
 		return "buyers-details";
 	}
 //  This controller used for find the particuler buyers by City & crop name..
@@ -133,7 +132,7 @@ public class MainController {
 		UserProfile profile = profileService.getProfileByUserId(user.getId());
 		model.addAttribute("profile", profile);
 
-		List<UserProfile> buyers = buyersDetailsService.searchBuyers(district, crop);
+		List<UserProfile> buyers = buyersFarmerDetailsService.searchBuyers(district, crop);
 
 		model.addAttribute("buyers", buyers);
 		return "buyers-details";
@@ -178,9 +177,42 @@ public class MainController {
 		UserProfile profile = profileService.getProfileByUserId(user.getId());
 		model.addAttribute("profile", profile);
 
-		buyerCropEntity crop = buyersDetailsService.getCropById(user.getId());
+		buyerCropEntity crop = buyersFarmerDetailsService.getCropById(user.getId());
 		model.addAttribute("buyerCrop", crop);
 		return "buyer-profile";
+	}
+
+	// This controller used in Buyers page to find the farmer
+	@GetMapping("/Farmer-details")
+	public String FarmerDetails(HttpSession session, Model model) {
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+
+		UserProfile profile = profileService.getProfileByUserId(user.getId());
+		model.addAttribute("profile", profile);
+
+		model.addAttribute("farmers", buyersFarmerDetailsService.getAllFarmers());
+		return "farmers-details";
+	}
+	//  This controller used for find the particuler Farmers by City & crop name..
+	@GetMapping("/buyers/farmer/search")
+	public String searchFarmers(HttpSession session,
+							   @RequestParam(required = false) String district,
+							   @RequestParam(required = false) String crop,
+							   Model model) {
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+
+		UserProfile profile = profileService.getProfileByUserId(user.getId());
+		model.addAttribute("profile", profile);
+
+		List<UserProfile> buyers = buyersFarmerDetailsService.searchBuyers(district, crop);
+		model.addAttribute("buyers", buyers);
+		return "farmers-details";
 	}
 	
 	

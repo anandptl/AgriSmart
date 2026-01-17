@@ -92,16 +92,13 @@ body {
 	width: 80px;
 	height: 80px;
 	border-radius: 50%;
-	/* round */
 	object-fit: cover;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
-	/* soft shadow */
 	transition: 0.3s;
 }
 
 .profile-img:hover {
 	transform: scale(1.05);
-	/* thoda hover effect classy look */
 }
 
 .avatar {
@@ -195,6 +192,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
+   width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.4);
   z-index: 900;
 }
@@ -503,4 +501,86 @@ body {
 		margin-left: 0;
 		padding-top: 60px;
 	}
+}
+
+/* ======== MOBILE RESPONSIVE UPDATES ======== */
+
+@media (max-width: 768px) {
+    /* 1. Main Container & Typography */
+    .main {
+        padding: 20px 15px;
+    }
+
+    .topbar h1 {
+        font-size: 24px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .topbar p {
+        font-size: 14px; /* Date text size fixed */
+        text-align: center;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* 2. Weather Widget Fix */
+    .weather-hero {
+        min-width: 100%;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .weather-hero .stats {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .compare-banner,
+    .compare-cards {
+        grid-template-columns: 1fr; /* 2 columns se 1 column */
+        gap: 15px;
+    }
+
+    .compare-banner .tile {
+        min-height: 150px;
+    }
+
+    .crop-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .crop-card .img {
+        height: 180px;
+    }
+
+    .kpis {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi {
+        justify-content: flex-start;
+        padding: 12px;
+    }
+
+    /* 6. Mandi Prices: Grid fix */
+    .price-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .price-card {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .weather-hero .left .temp {
+        font-size: 36px;
+    }
+
+    .section-head h2 {
+        font-size: 20px;
+    }
 }

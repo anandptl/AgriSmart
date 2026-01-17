@@ -142,7 +142,9 @@ public class AuthController {
 	}
 	
 
-// forget possword controller...... 
+// Ajex forget possword controller......
+
+
 
 	@GetMapping("/forget")
 	public String forgetpageoprn() {
@@ -150,48 +152,65 @@ public class AuthController {
 	}
 	
 	@PostMapping("/forgot-password")
-	public String forgotPassword(@RequestParam String email, Model model) {
-
+	@ResponseBody
+	public Map<String, String> sendFrogetOtp(@RequestBody Map<String, String> request){
+		String email = request.get("email");
 		String msg = authService.sendOtp(email);
 
 		if (msg.contains("not registered")) {
-			model.addAttribute("Error", msg);
-			return "forgot-password";
+			return Map.of(
+					"status", "error",
+					"message", msg
+			);
 		}
 
-		model.addAttribute("Success", msg);
-		model.addAttribute("email", email);
-
-		return "verify-otp";
+		return Map.of(
+				"status", "success",
+				"message", msg
+		);
 	}
+	@PostMapping("/verify-forgot-otp")
+	@ResponseBody
+	public Map<String, String> verifyForgotOtp(@RequestBody Map<String, String> request) {
 
-	@PostMapping("/verify-otp")
-	public String verifyOtp(@RequestParam String email, @RequestParam String otp, Model model) {
-
-		boolean valid = authService.verifyOtp(email, otp);
+		boolean valid = authService.verifyOtp(
+				request.get("email"),
+				request.get("otp")
+		);
 
 		if (!valid) {
-			model.addAttribute("Error", "Invalid or expired OTP!");
-			model.addAttribute("email", email);
-			return "verify-otp";
+			return Map.of(
+					"status", "error",
+					"message", "Invalid or expired OTP"
+			);
 		}
 
-		model.addAttribute("email", email);
-		return "reset-password";
+		return Map.of(
+				"status", "success",
+				"message", "OTP verified"
+		);
 	}
 
 	@PostMapping("/reset-password")
-	public String resetPassword(@RequestParam String email, @RequestParam String newPassword, Model model) {
+	@ResponseBody
+	public Map<String, String> resetForgotPassword(@RequestBody Map<String, String> request) {
 
-		boolean status = authService.resetPassword(email, newPassword);
+		boolean status = authService.resetPassword(
+				request.get("email"),
+				request.get("newPassword")
+		);
 
 		if (!status) {
-			model.addAttribute("Error", "Failed to reset password!");
-			return "reset-password";
+			return Map.of(
+					"status", "error",
+					"message", "Failed to reset password"
+			);
 		}
 
-		model.addAttribute("Successfull", "Password reset successfully!");
-		return "login";
+		return Map.of(
+				"status", "success",
+				"message", "Password reset successfully"
+		);
 	}
 	
 //	Ajex Signup controller 

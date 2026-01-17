@@ -1,99 +1,212 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
+}
+
+/* ================= BODY BACKGROUND ================= */
 body {
-	font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
-	background: linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .2)), url('../Image/Morning.jpg') center/cover no-repeat;
-	min-height: 100vh;
-	margin: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	position: relative;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .2)),
+                url('../Image/Morning.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 90px;
 }
 
-.container {
-	width: 350px;
-	margin: 100px auto;
-	background: rgba(255, 255, 255, .12);
-	backdrop-filter: blur(8px);
-	border: 1px solid rgba(255, 255, 255, .4);
-	padding: 30px;
-	border-radius: 10px;
-	box-shadow: 0 0 10px #ccc;
-}
-
-h2 {
-	text-align: center;
-	margin: 20px;
-}
-
-button {
-	width: 100%;
-	padding: 10px;
-	margin-top: 10px;
-	border-radius: 6px;
-	border: 1px solid #ccc;
-}
-
-input {
-	width: 95%;
-	padding: 10px;
-	margin-top: 10px;
-	border-radius: 6px;
-	border: 1px solid #ccc;
-}
-
-button {
-	background: #007bff;
-	color: #fff;
-	border: none;
-	cursor: pointer;
-}
-
-button:hover {
-	background: #0069d9;
-}
-
-.msg {
-	color: green;
-	text-align: center;
-	margin-top: 10px;
-}
-
-.error {
-	color: red;
-	text-align: center;
-	margin-top: 10px;
-}
-
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 .navbar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 93%;
-	padding: 15px 60px;
-	display: flex;
-	justify-content: space-between;
-	background: rgba(0, 0, 0, .45);
-	backdrop-filter: blur(6px);
-	color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 14px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, .45);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    z-index: 999;
 }
 
 .nav-logo a {
-	text-decoration: none;
-	color: #fff;
-}
-
-.navbar h2 {
-	margin: 0;
-	text-align: center;
+    text-decoration: none;
+    color: #fff;
 }
 
 .index-btn {
-	margin: 0;
-	padding: 10px 30px;
-	background: #38a169;
-	border-radius: 30px;
-	color: white;
-	text-decoration: none;
+    padding: 10px 28px;
+    background: #38a169;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.index-btn:hover {
+    background: #2f855a;
+}
+
+/* ================= CONTAINER ================= */
+.container {
+    width: 100%;
+    max-width: 380px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, .4);
+    padding: 30px 25px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* ================= HEADING ================= */
+.container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* ================= INPUTS ================= */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #38a169;
+}
+
+/* ================= BUTTON ================= */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 14px;
+    border-radius: 8px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #0069d9;
+}
+
+/* ================= STATUS TEXT ================= */
+#otpStatus {
+    margin: 10px 0 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.msg {
+    color: #00ff88;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.error {
+    color: #ff4d4d;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* ================= PASSWORD FIELD ================= */
+.password-box {
+    position: relative;
+    margin-top: 12px;
+}
+
+.password-box input {
+    width: 100%;
+    padding: 12px 42px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.password-box .fa-lock {
+    position: absolute;
+    left: 12px;
+    top: 60%;
+    transform: translateY(-50%);
+    color: #555;
+}
+
+.password-box .toggle-eye {
+    position: absolute;
+    right: 12px;
+    top: 60%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+/* 📱 Tablets & Phones */
+@media (max-width: 768px) {
+
+    body {
+        justify-content: flex-start;
+        padding-top: 90px;
+    }
+
+    .navbar {
+        padding: 12px 20px;
+    }
+
+    .index-btn {
+        padding: 8px 18px;
+        font-size: 14px;
+    }
+
+    .container {
+        width: 92%;
+        padding: 24px 20px;
+    }
+
+    .container h2 {
+        font-size: 22px;
+    }
+}
+
+/* 📱 Small Phones */
+@media (max-width: 480px) {
+
+    body {
+        padding-top: 80px;
+    }
+
+    .navbar {
+        padding: 10px 15px;
+    }
+
+    .container {
+        padding: 20px 16px;
+        border-radius: 12px;
+    }
+
+    .container h2 {
+        font-size: 20px;
+    }
+
+    input,
+    button {
+        font-size: 14px;
+    }
 }

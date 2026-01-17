@@ -1,255 +1,117 @@
+/* ================= ROOT VARIABLES ================= */
 :root {
-	--sidebar-width: 260px;
-	--accent-green: #38c172;
-	--bg-main: #f0f2f5;
-	--sidebar-bg: #0d1b2a;
+    --sidebar-width: 260px;
+    --accent-green: #38c172;
+    --bg-main: #f0f2f5;
+    --sidebar-bg: #0d1b2a;
+    --input-bg: #f8fafc;
+    --label-color: #38a169;
 }
 
+/* ================= RESET ================= */
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 	font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
 }
 
 body {
-	background: var(--bg-main);
+    background: var(--bg-main);
 }
 
-/* LAYOUT WRAPPER */
-.dashboard-wrapper {
-	display: flex;
-	min-height: 100vh;
+.dashboard {
+    display: flex;
+    min-height: 100vh;
 }
 
-/* SIDEBAR */
+/* ================= SIDEBAR (NO CHANGES) ================= */
 .sidebar {
-	width: var(--sidebar-width);
-	background: #0d1b2a;
-	color: #fff;
-	padding: 25px 20px;
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	position: fixed;
-	top: 0;
-	left: 0;
-	transition: transform 0.3s ease-in-out;
-	z-index: 1000;
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    color: #fff;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: 0.3s;
+    z-index: 1000;
 }
 
-.sidebar.hidden {
-	transform: translateX(-100%);
-}
+.brand { font-size: 20px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.brand i { color: var(--accent-green); }
 
-/* Sidebar toggle button (hamburger) */
-.toggle-btn {
-	display: none;
-	position: fixed;
-	top: 18px;
-	left: 20px;
-	background: var(--sidebar-bg);
-	color: #fff;
-	border: none;
-	font-size: 22px;
-	border-radius: 6px;
-	padding: 6px 10px;
-	cursor: pointer;
-	z-index: 1100;
-}
+.user { text-align: center; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 15px; }
+.avatar { width: 60px; height: 60px; background: var(--accent-green); border-radius: 50%; display: grid; place-items: center; margin: 0 auto 10px; font-size: 22px; }
 
-.brand {
-	font-size: 20px;
-	font-weight: 600;
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	margin-bottom: 10px;
-}
+.menu a { display: block; padding: 12px; color: #dfe7ef; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.3s; }
+.menu a i { margin-right: 10px; }
+.menu a:hover, .menu a.active { background: var(--accent-green); color: #fff; }
 
-label {
-	color: #38a169;
-}
+.logout-btn { margin-top: auto; padding: 12px; background: #ef4444; color: #fff; text-align: center; border-radius: 8px; text-decoration: none; }
 
-.brand i {
-	color: #38a169;
-}
-
-.user {
-	text-align: center;
-	padding-bottom: 10px;
-	border-bottom: 1px solid rgba(255, 255, 255, .12);
-}
-
-.avatar {
-	width: 60px;
-	height: 60px;
-	background: #38a169;
-	border-radius: 50%;
-	display: grid;
-	place-items: center;
-	font-size: 22px;
-	margin: auto;
-	margin-bottom: 8px;
-}
-
-.user h3 {
-	font-size: 20px;
-}
-
-.user p {
-	padding-top: 5px;
-	font-size: 15px;
-	color: #9fb2c8;
-}
-
-.menu {
-	margin-top: 10px;
-}
-
-.menu a {
-	display: block;
-	padding: 12px;
-	border-radius: 8px;
-	color: #dfe7ef;
-	text-decoration: none;
-	margin-bottom: 8px;
-	transition: .3s;
-}
-
-.menu a i {
-	margin-right: 10px;
-}
-
-.menu a:hover,
-.menu a.active {
-	background: var(--accent-green);
-	color: #fff;
-}
-
-.logout-btn {
-	margin-top: auto;
-	padding: 12px;
-	border: none;
-	background: #ef4444;
-	color: #fff;
-	border-radius: 8px;
-	cursor: pointer;
-	font-size: 15px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 8px;
-	transition: 0.3s;
-	text-decoration: none;
-}
-
-.logout-btn:hover {
-	background: #dc2626;
-	transform: scale(1.03);
-}
-
-.overlay {
-	display: none;
-	position: fixed;
-	inset: 0;
-	background: rgba(0, 0, 0, 0.4);
-	z-index: 900;
-}
-
-.overlay.active {
-	display: block;
-}
-
-/* MAIN PROFILE AREA */
+/* ================= MAIN CONTENT ================= */
 .main {
-	margin-left: var(--sidebar-width);
-	flex: 1;
-	padding: 28px 32px;
-	transition: margin-left 0.3s ease-in-out;
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: 30px;
+    display: flex;
+    justify-content: center;
 }
 
-.main.expanded {
-	margin-left: 0;
+.toggle-btn {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: var(--sidebar-bg);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1100;
 }
 
+/* ================= PROFILE CARD (IMAGE DESIGN) ================= */
 .profile-card {
-	background: white;
-	padding: 30px;
-	border-radius: 15px;
-	max-width: 700px;
-	margin: auto;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+    background: #fff;
+    width: 100%;
+    max-width: 850px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-.profile-card h2 {
-	margin-bottom: 20px;
-	text-align: center;
+.title {
+    font-size: 24px;
+    color: #1a202c;
+    margin-bottom: 30px;
+    text-align: center;
+    padding-left: 15px;
 }
 
-/* FORM STYLING */
-.profile-card form label {
-	display: block;
-	margin-top: 12px;
-	font-weight: 500;
-}
-
-.profile-card form input {
-	width: 100%;
-	padding: 12px;
-	border-radius: 8px;
-	border: 1px solid #ccc;
-	margin-top: 5px;
-}
-
-.button-row {
+/* Photo Preview Styling */
+.profile-photo-img {
 	display: flex;
 	justify-content: center;
-	margin-top: 20px;
+	margin-bottom: 5px;
 }
 
-.name,
-.address-group,
- .Crop-group{
-	display: flex;
-	justify-content: space-between;
-	gap: 20px;
-	width: 100%;
+.profile-img {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	object-fit: cover;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+	transition: 0.3s;
 }
 
-.name input {
-	flex: 1;
-}
-
-.address-group input,
- .Crop-group input{
-	flex: 1;
-}
-
-.name>div,
-.address-group>div,
- .Crop-group>div{
-	width: 50%;
-	/* Each box 50%-50% */
-}
-
-.name input,
-.address-group input,
- .Crop-group input{
-	width: 100%;
-}
-
-.save-btn {
-	padding: 10px 25px;
-	border-radius: 8px;
-	border: none;
-	font-weight: 600;
-	cursor: pointer;
-}
-
-.save-btn {
-	background: var(--accent-green);
-	color: #fff;
+.profile-img:hover {
+	transform: scale(1.05);
 }
 
 .profile-photo-container {
@@ -270,62 +132,153 @@ label {
 .profile-photo:hover {
 	transform: scale(1.05);
 }
-
-/*side par ke liye */
-.profile-photo-img {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 5px;
+/* Grid Layout for Desktop */
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
-.profile-img {
-	width: 80px;
-	height: 80px;
-	border-radius: 50%;
-	object-fit: cover;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
-	transition: 0.3s;
+.input-group {
+    margin-bottom: 15px;
 }
 
-.profile-img:hover {
-	transform: scale(1.05);
+.full-width {
+    grid-column: span 2;
 }
 
-
-.profile-card select {
-	width: 100%;
-	padding: 12px;
-	border-radius: 8px;
-	border: 1px solid #ccc;
-	margin-top: 5px;
-	font-size: 15px;
-	cursor: pointer;
-	outline: none;
-	transition: 0.3s;
+.crop-input-grid {
+    display: flex;
+    gap: 15px;
+    width: 100%;
 }
 
-.profile-card select:focus {
-	border-color: var(--accent-green);
-	box-shadow: 0 0 6px rgba(56, 193, 114, 0.4);
+.crop-input-grid .input-group {
+    flex: 1;              /* 🔥 teeno equal width */
 }
 
-/* ======== RESPONSIVE ======== */
-@media (max-width: 992px) {
-	.sidebar {
-		transform: translateX(-100%);
-	}
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--label-color);
+    margin-bottom: 10px;
+}
 
-	.sidebar.active {
-		transform: translateX(0);
-	}
+label i { margin-right: 5px; }
 
-	.toggle-btn {
-		display: block;
-	}
+input, select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: var(--input-bg);
+    font-size: 14px;
+    transition: 0.3s;
+}
 
-	.main {
-		margin-left: 0;
-		padding-top: 60px;
-		/* Space for toggle button */
-	}
+input:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    background: #fff;
+}
+
+/* Upload Box */
+.upload-section {
+    margin: 10px 0;
+    background: #f1f5f9;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
+}
+
+.upload-box p {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+/* Save Button */
+.button-row {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.save-btn {
+    background: var(--accent-green);
+    color: #fff;
+    padding: 12px 35px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.save-btn:hover { background: #2f9e5d; transform: translateY(-2px); }
+
+/* ================= MOBILE RESPONSIVE ================= */
+/* 📱 REAL PHONE RESPONSIVE FIX */
+@media (max-width: 768px) {
+
+    /* Sidebar off */
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 80px 15px 20px;
+    }
+
+    /* Card phone jaisa */
+    .profile-card {
+        max-width: 420px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 25px 15px;
+    }
+
+    /* 🔥 SAB GRID → SINGLE COLUMN */
+    .input-grid {
+        display: grid;
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+    }
+
+    /* Phone number bhi normal flow me */
+    .input-group.full-width {
+        grid-column: span 1;
+    }
+
+    /* Photo smaller */
+    .profile-photo {
+        width: 90px;
+        height: 90px;
+    }
+
+    /* Button full width */
+    .save-btn {
+        width: 100%;
+    }
+
+    .crop-input-grid {
+            flex-direction: column;   /* 🔥 ek ke niche ek */
+            gap: 12px;
+    }
+
+    .crop-input-grid .input-group {
+            width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .toggle-btn {
+        display: block;
+    }
 }

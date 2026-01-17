@@ -1,4 +1,3 @@
-/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +5,6 @@
   font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
 }
 
-/* ---------------- NAVBAR (FIXED) ---------------- */
 .navbar {
   width: 100%;
   position: fixed;
@@ -21,15 +19,16 @@
   color: #fff;
   z-index: 999;
 }
-a{
-	text-decoration: none;
-	color: #000;
+
+a {
+    text-decoration: none;
+    color: #000;
 }
-.logo a{
+
+.logo a {
   font-weight: 700;
   font-size: 1.6rem;
   color: #fff;
-  text-decoration: none;
 }
 
 .nav-links {
@@ -40,7 +39,6 @@ a{
 }
 
 .nav-links a {
-  text-decoration: none;
   color: #fff;
   font-weight: 500;
 }
@@ -49,7 +47,6 @@ a{
   color: #f6c945;
 }
 
-/* Language Select */
 .language-select {
   background: transparent;
   color: #fff;
@@ -64,14 +61,12 @@ a{
   background: #fff;
 }
 
-/* Login Button */
 .login-btn {
   padding: 10px 22px;
   background: #38a169;
   border-radius: 35px;
   color: #fff;
   font-weight: 600;
-  text-decoration: none;
   transition: .3s;
 }
 
@@ -80,7 +75,6 @@ a{
   transform: scale(1.07);
 }
 
-/* ---------------- HERO SECTION ---------------- */
 .hero {
   height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.151), rgba(0, 0, 0, 0)),
@@ -89,7 +83,6 @@ a{
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding-top: 10px;
 }
 
 .hero-content {
@@ -122,7 +115,6 @@ a{
   margin-bottom: 30px;
 }
 
-/* Buttons */
 .btn {
   padding: 12px 32px;
   border-radius: 50px;
@@ -131,12 +123,12 @@ a{
   border: none;
   transition: .3s;
   margin: 10px;
+  display: inline-block;
 }
 
 .primary {
   background: #38a169;
   color: #fff;
-  text-decoration: none;
 }
 
 .secondary {
@@ -145,19 +137,12 @@ a{
   color: #fff;
 }
 
-.btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, .3);
-}
-
-/* ---------------- CROPS SECTION (UPDATED PREMIUM UI) ---------------- */
 .crops {
-  padding: 90px 0;
+  padding: 90px 20px;
   text-align: center;
   width: 100%;
   max-width: 1100px;
   margin: auto;
-  background: #ffffff;
 }
 
 .crops h2 {
@@ -166,59 +151,36 @@ a{
   margin-bottom: 10px;
 }
 
-.crops p {
-  color: #6b7280;
-  font-size: 15px;
-}
-
-/* 3 x 3 Fixed Grid */
 .crop-grid {
   margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
-  justify-items: center;
 }
 
-
-/* Crop Card (Modern UI) */
 .crop-card {
-  width: 100%;
-  max-width: 360px;
   border-radius: 18px;
   background: #fff;
   overflow: hidden;
   box-shadow: 0 8px 30px rgba(0,0,0,0.08);
   transition: 0.35s ease;
-  cursor: pointer;
 }
 
 .crop-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
 }
 
-/* Image Section */
 .crop-img {
   position: relative;
-  width: 100%;
   height: 200px;
-  overflow: hidden;
 }
 
 .crop-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: .4s ease;
 }
 
-/* Hover Zoom on Image */
-.crop-card:hover .crop-img img {
-  transform: scale(1.1);
-}
-
-/* Season Tag (Top Right) */
 .season-tag {
   position: absolute;
   top: 12px;
@@ -228,10 +190,8 @@ a{
   padding: 4px 10px;
   font-size: 12px;
   border-radius: 12px;
-  backdrop-filter: blur(4px);
 }
 
-/* Bottom Crop Info */
 .crop-body {
   padding: 18px 22px;
   display: flex;
@@ -239,77 +199,28 @@ a{
   align-items: center;
 }
 
-.crop-body h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #1a1d22;
-}
-
-.crop-body p {
-  font-size: 14px;
-  color: #6b7280;
-  margin-top: 4px;
-}
-
-.crop-body i {
-  font-size: 20px;
-  color: #38a169;
-  transition: .3s;
-}
-
-/* Arrow Hover Animation */
-.crop-card:hover .crop-body i {
-  transform: translateX(4px);
-}
-
-/* Responsive */
-@media(max-width: 992px) {
-  .crop-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media(max-width: 600px) {
-  .crop-grid { grid-template-columns: repeat(1, 1fr); }
-}
-
-
-/* ---------------- TOOLS SECTION ---------------- */
 .tools-section {
-  padding: 90px 0;
+  padding: 90px 20px;
   text-align: center;
-  background: #ffffff;
 }
 
-.tools-section h2 {
-  font-size: 42px;
-  font-weight: 700;
-}
-
-/* Tools Grid */
 .tools-grid {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 25px;
-  padding: 50px;
+  margin-top: 50px;
 }
 
-/* Tool Card */
 .tool-card {
   background: #fff;
   border-radius: 22px;
   width: 230px;
   padding: 28px 22px;
-  text-align: center;
   box-shadow: 0 8px 28px rgba(0, 0, 0, .08);
   transition: .35s;
-  cursor: pointer;
 }
 
-.tool-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 34px rgba(0, 0, 0, .14);
-}
-
-/* Icon */
 .tool-icon {
   width: 74px;
   height: 74px;
@@ -322,19 +233,16 @@ a{
 
 .tool-icon i { font-size: 28px; color: #fff; }
 
-/* Colors */
 .blue-bg { background: #3b82f6; }
 .green-bg { background: #28a745; }
 .purple-bg { background: #a855f7; }
-.red-bg { background: #ef4444; }
 .orange-bg { background: #f97316; }
-.sky-bg{ background: #3aa6f2; }
+.sky-bg { background: #3aa6f2; }
 
-/* ---------------- FOOTER ---------------- */
 .main-footer {
   background: #0f1114;
   color: #fff;
-  padding: 60px 0;
+  padding: 60px 20px;
 }
 
 .footer-container {
@@ -349,23 +257,27 @@ a{
 .footer-col ul { list-style: none; }
 
 .footer-col ul li {
-  margin-bottom: 8px;
+  margin-top: 8px;
   color: #cbd5e0;
-  cursor: pointer;
-  transition: .3s;
 }
-
-.footer-col ul li:hover { color: #38a169; }
 
 .footer-bottom {
   text-align: center;
-  padding-top: 25px;
-  color: #cbd5e0;
-  font-size: 14px;
+  margin-top: 40px;
+  border-top: 1px solid #333;
+  padding-top: 20px;
 }
 
-/* ---------------- RESPONSIVE ---------------- */
-@media(max-width: 768px) {
-  .navbar { padding: 15px 25px; }
-  .footer-container { text-align: center; justify-content: center; }
+@media (max-width: 992px) {
+  .crop-grid { grid-template-columns: repeat(2, 1fr); }
+  .navbar { padding: 15px 30px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hero h1 { font-size: 2.5em; }
+  .hero-content { padding: 25px; }
+  .crop-grid { grid-template-columns: 1fr; }
+  .tool-card { width: 100%; max-width: 300px; }
+  .footer-container { flex-direction: column; text-align: center; }
 }

@@ -27,9 +27,41 @@ public class EmailService {
             helper.setTo(to);
             helper.setSubject("AgriSmart Password Reset OTP");
 
-            String text = "Your OTP is: " + otp + "\nValid for 5 minutes.";
+//            String  text= "Your OTP is: " + otp + "\nValid for 5 minutes.";
+           String text =
+                    "<div style='font-family:Arial, sans-serif; line-height:1.6; color:#333;'>" +
 
-            helper.setText(text);
+                            "<h2 style='color:#e74c3c;'>🔒 Password Reset Request</h2>" +
+
+                            "<p>Dear User,</p>" +
+
+                            "<p>" +
+                            "We received a request to reset your <b>AgriSmart</b> account password." +
+                            "</p>" +
+
+                            "<p>Please use the OTP below to verify your identity and continue:</p>" +
+
+                            "<div style='margin:20px 0; padding:15px; background:#fdf2f2; border-radius:8px; text-align:center;'>" +
+                            "<span style='font-size:24px; font-weight:bold; color:#e74c3c; letter-spacing:3px;'>" +
+                            otp +
+                            "</span>" +
+                            "</div>" +
+
+                            "<p>⏱ <b>This OTP is valid for 5 minutes only.</b></p>" +
+
+                            "<p style='color:#777; font-size:14px;'>" +
+                            "If you did not request a password reset, please ignore this email. " +
+                            "Your account remains secure." +
+                            "</p>" +
+
+                            "<br>" +
+                            "<p>Stay Secure 🌾<br>" +
+                            "<b>— Team AgriSmart</b></p>" +
+
+                            "</div>";
+
+
+            helper.setText(text, true);
 
             mailSender.send(message);
 

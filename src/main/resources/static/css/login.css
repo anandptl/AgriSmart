@@ -343,3 +343,121 @@ label {
 .input-box select option {
     color: black;
 }
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px;
+        align-items: flex-start;   /* keyboard ke time better */
+    }
+
+    /* Navbar */
+    .navbar {
+        padding: 12px 20px;
+    }
+
+    .index-btn {
+        padding: 8px 18px;
+        font-size: 14px;
+    }
+
+    /* Login Box */
+    .login-box {
+        width: 90%;
+        max-width: 420px;
+        padding: 22px 20px;
+        border-radius: 22px;
+    }
+
+    /* Headings */
+    .logo-box {
+        font-size: 40px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    /* Name row → stack */
+    .name-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* OTP row → stack */
+    .otp-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .otp-row .input-button:first-child,
+    .otp-row .input-button:last-child {
+        flex: 1;
+    }
+
+    .otp-button button {
+        margin-top: 5px;
+    }
+
+    /* Inputs */
+    .input-box {
+        padding: 9px;
+    }
+
+    .input-box input,
+    .input-box select {
+        font-size: 14px;
+    }
+
+    textarea {
+        font-size: 14px;
+    }
+
+    /* Buttons */
+    .signin-btn,
+    .google-btn {
+        font-size: 15px;
+        padding: 11px;
+    }
+}
+
+/* 📱 SMALL PHONES (≤480px) */
+@media (max-width: 480px) {
+
+    body {
+        padding-top: 70px;
+    }
+
+    .navbar {
+        padding: 10px 15px;
+    }
+
+    .login-box {
+        width: 94%;
+        padding: 20px 16px;
+        border-radius: 18px;
+    }
+
+    .logo-box {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    label,
+    .input-group label {
+        font-size: 13px;
+    }
+
+    .options {
+        font-size: 13px;
+    }
+
+    .signup-text {
+        font-size: 13px;
+    }
+}
