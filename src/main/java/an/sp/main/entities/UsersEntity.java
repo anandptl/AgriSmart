@@ -17,15 +17,15 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "users")
 public class UsersEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	    
+
 	@NotBlank
 	@Column(nullable = false)
 	private String firstName;
-	    
+
 	@NotBlank
 	@Column(nullable = false)
 	private String lastName;
@@ -47,38 +47,33 @@ public class UsersEntity {
 	@NotBlank
 	@Column(nullable = false)
 	private String role;
-	    
-	@Column
-	private String otp;
 
-	@Column
-	private Date otpGeneratedTime;
-
-	    
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private UserProfile profile;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private buyerCropEntity buyerCrop;
 
-	public buyerCropEntity getBuyerCrop() {
-		return buyerCrop;
-	}
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private UserActivityEntity activity;
 
-	public void setBuyerCrop(buyerCropEntity buyerCrop) {
-		this.buyerCrop = buyerCrop;
-	}
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private OtpEntity otpDetails;
+
+
+// getter & setter
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getFirstName() {
-			return firstName;
-		}
+		return firstName;
+	}
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -132,21 +127,27 @@ public class UsersEntity {
 		this.profile = profile;
 	}
 
-	public String getOtp() {
-			return otp;
-		}
-
-	public void setOtp(String otp) {
-		this.otp = otp;
+	public buyerCropEntity getBuyerCrop() {
+		return buyerCrop;
 	}
 
-	public Date getOtpGeneratedTime() {
-			return otpGeneratedTime;
-		}
+	public void setBuyerCrop(buyerCropEntity buyerCrop) {
+		this.buyerCrop = buyerCrop;
+	}
 
-	public void setOtpGeneratedTime(Date otpGeneratedTime) {
-			this.otpGeneratedTime = otpGeneratedTime;
-		}
-	    
+	public UserActivityEntity getActivity() {
+		return activity;
+	}
 
+	public void setActivity(UserActivityEntity activity) {
+		this.activity = activity;
+	}
+
+	public OtpEntity getOtpDetails() {
+		return otpDetails;
+	}
+
+	public void setOtpDetails(OtpEntity otpDetails) {
+		this.otpDetails = otpDetails;
+	}
 }

@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AgriSmart | Buyers Details</title>
+    <title>AgriSmart | Farmer Details</title>
     <link rel="stylesheet" href="/css/buyers-farmer-details.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -65,6 +65,11 @@
 
                 <!-- Search -->
                 <form action="/buyers/farmer/search" method="get" class="farmer-search-form">
+                     <div class="search-group">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="name" placeholder="Enter Farmer Name (e.g. Anand Patel)">
+                     </div>
+
                     <div class="search-group">
                         <i class="fa-solid fa-location-dot"></i>
                         <input type="text" name="district" placeholder="Enter District (e.g. Indore)">
@@ -89,7 +94,7 @@
                                     <img class="profile-img" src="/user/photo/${f.user.id}" alt="Farmer Profile">
                                 </c:when>
                                 <c:otherwise>
-                                    <i class="fa-solid fa-user"></i>
+                                     <div class="avatar"><i class="fa-solid fa-user"></i></div>
                                 </c:otherwise>
                             </c:choose>
 

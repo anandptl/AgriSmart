@@ -32,8 +32,12 @@ public class buyersFarmerDetailsService {
         return buyersDetailsRepo.findByUser_Id(userId);
     }
 
-    public List<UserProfile> searchBuyers(String district, String crop) {
-        return userProfileRepository.searchBuyers(district, crop);
+    public List<UserProfile> searchBuyers(String name,String district, String crop) {
+        return userProfileRepository.searchBuyers(name,district, crop);
+    }
+
+    public List<UserProfile> searchFarmers(String name,String district, String crop) {
+        return userProfileRepository.searchFarmers(name, district, crop);
     }
 
 }

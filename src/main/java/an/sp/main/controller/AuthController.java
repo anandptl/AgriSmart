@@ -2,8 +2,11 @@ package an.sp.main.controller;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Map;
 
+import an.sp.main.entities.UserActivityEntity;
+import an.sp.main.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,8 +22,6 @@ import org.springframework.web.client.RestTemplate;
 
 import an.sp.main.entities.UserProfile;
 import an.sp.main.entities.UsersEntity;
-import an.sp.main.service.AuthService;
-import an.sp.main.service.ProfileService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -34,7 +35,16 @@ public class AuthController {
 	private AuthService authService;
 
 	@Autowired
+	private OtpService otpService;
+
+	@Autowired
 	private ProfileService profileService;
+
+	@Autowired
+	private AdminService adminService;
+
+	@Autowired
+	private UserActivityService userActivityService;
 
 	@Value("${weather.api.key}")
 	private String apiKey;
@@ -84,6 +94,23 @@ public class AuthController {
 
 			UsersEntity user = authService.getByEmail(email);
 
+			// ===== USER ACTIVITY HANDLE =====
+			UserActivityEntity activity = user.getActivity();
+
+			if (activity == null) {
+				activity = new UserActivityEntity();
+				activity.setUser(user);
+			}
+
+			activity.setLastSeen(LocalDateTime.now());
+
+//			user.setActivity(activity);
+			if (activity.getId() == null) {
+				user.setActivity(activity);
+			}
+			userActivityService.saveActivity(activity);
+			// ___________________________________
+
 			session.setAttribute("token", token);
 			session.setAttribute("user", user);
 			session.setAttribute("role", user.getRole());
@@ -125,8 +152,17 @@ public class AuthController {
 				return "buyer-dashboard";
 
 			case "ADMIN":
+
 				model.addAttribute("Successfull", "Welcome :" + user.getFirstName());
-				return "admin-panel";
+				UserProfile admin = profileService.getProfileByUserId(user.getId());
+				model.addAttribute("profile", admin);
+				model.addAttribute("totalBuyers", adminService.getTotalBuyers());
+				model.addAttribute("totalFarmers", adminService.getTotalFarmers());
+				model.addAttribute("activeUsers", userActivityService.getActiveUsers());
+				model.addAttribute("userList", userActivityService.getUsersWithStatus());
+
+
+				return "AdminDash";
 
 			default:
 				model.addAttribute("Error", "Invalid Role!");
@@ -135,7 +171,6 @@ public class AuthController {
 
 		} catch (Exception e) {
 			model.addAttribute("Error", e.getMessage());
-//			model.addAttribute("Error", "Something went wrong");
 			System.out.println(e);
 			return "login";
 		}
@@ -155,7 +190,7 @@ public class AuthController {
 	@ResponseBody
 	public Map<String, String> sendFrogetOtp(@RequestBody Map<String, String> request){
 		String email = request.get("email");
-		String msg = authService.sendOtp(email);
+		String msg = otpService.sendOtp(email);
 
 		if (msg.contains("not registered")) {
 			return Map.of(
@@ -173,7 +208,7 @@ public class AuthController {
 	@ResponseBody
 	public Map<String, String> verifyForgotOtp(@RequestBody Map<String, String> request) {
 
-		boolean valid = authService.verifyOtp(
+		boolean valid = otpService.verifyOtp(
 				request.get("email"),
 				request.get("otp")
 		);
@@ -195,7 +230,7 @@ public class AuthController {
 	@ResponseBody
 	public Map<String, String> resetForgotPassword(@RequestBody Map<String, String> request) {
 
-		boolean status = authService.resetPassword(
+		boolean status = otpService.resetPassword(
 				request.get("email"),
 				request.get("newPassword")
 		);
@@ -220,7 +255,7 @@ public class AuthController {
 	public Map<String, String> sendSignupOtp(@RequestBody Map<String, String> request) {
 
 	    String email = request.get("email");
-	    String msg = authService.sendSignupOtp(email);
+	    String msg = otpService.sendSignupOtp(email);
 
 	    if (msg.contains("already")) {
 	        return Map.of("status", "error", "message", msg);
@@ -233,7 +268,7 @@ public class AuthController {
 	@ResponseBody
 	public Map<String, String> verifySignupOtp(@RequestBody Map<String, String> request) {
 
-	    boolean valid = authService.verifySignupOtp(
+	    boolean valid = otpService.verifySignupOtp(
 	        request.get("email"),
 	        request.get("otp")
 	    );

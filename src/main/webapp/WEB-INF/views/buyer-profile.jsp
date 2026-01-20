@@ -107,14 +107,12 @@
                             <!-- PHONE -->
                             <div class="input-group full-width">
                                 <label><i class="fas fa-phone"></i> Phone Number</label>
-                                <input type="text"
-                                       name="phone"
-                                       value="${profile.phone != null ? profile.phone : '+91'}"
-                                       minlength="13"
-                                       maxlength="13"
-                                       pattern="\\+91[0-9]{10}"
-                                       placeholder="+91808186XXXX"
-                                       required/>
+                                <input type="text" name="phone"
+                                                    	value="${profile.phone != null ? profile.phone : '+91'}"
+                                                    	minlength="13" maxlength="13"
+                                                    	pattern="\+91[0-9]{10}"
+                                                    	placeholder = "+91808186XXXX"
+                                                    	required>
                             </div>
 
                             <!-- ADDRESS -->

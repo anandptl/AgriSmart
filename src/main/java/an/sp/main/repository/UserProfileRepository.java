@@ -24,17 +24,51 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
 
 //    search buyers by city & crop name
 @Query("""
-    SELECT p 
+SELECT DISTINCT p
+FROM UserProfile p
+JOIN p.user u
+LEFT JOIN u.buyerCrop c
+WHERE u.role = 'BUYER'
+  AND (
+        :name IS NULL OR :name = ''
+        OR LOWER(u.firstName) LIKE LOWER(CONCAT('%', :name, '%'))
+        OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :name, '%'))
+        OR LOWER(CONCAT(u.firstName, ' ', u.lastName))
+           LIKE LOWER(CONCAT('%', :name, '%'))
+      )
+  AND (:district IS NULL OR :district = '' OR p.district = :district)
+  AND (:crop IS NULL OR :crop = ''
+       OR c.crop1 = :crop
+       OR c.crop2 = :crop
+       OR c.crop3 = :crop)
+""")
+
+    List<UserProfile> searchBuyers(
+            @Param("name") String name,
+            @Param("district") String district,
+            @Param("crop") String crop);
+
+    @Query("""
+    SELECT DISTINCT p
     FROM UserProfile p
     JOIN p.user u
     LEFT JOIN u.buyerCrop c
-    WHERE u.role = 'BUYER'
+    WHERE u.role = 'FARMER'
+      AND (
+            :name IS NULL OR :name = ''
+            OR LOWER(u.firstName) LIKE LOWER(CONCAT('%', :name, '%'))
+            OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :name, '%'))
+            OR LOWER(CONCAT(u.firstName, ' ', u.lastName))
+               LIKE LOWER(CONCAT('%', :name, '%'))
+          )
       AND (:district IS NULL OR :district = '' OR p.district = :district)
-      AND (:crop IS NULL OR :crop = '' 
-           OR c.crop1 = :crop 
-           OR c.crop2 = :crop 
+      AND (:crop IS NULL OR :crop = ''
+           OR c.crop1 = :crop
+           OR c.crop2 = :crop
            OR c.crop3 = :crop)
     """)
-    List<UserProfile> searchBuyers(@Param("district") String district,
-                               @Param("crop") String crop);
+    List<UserProfile> searchFarmers(
+            @Param("name") String name,
+            @Param("district") String district,
+            @Param("crop") String crop);
 }

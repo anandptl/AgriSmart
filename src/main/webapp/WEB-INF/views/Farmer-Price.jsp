@@ -57,7 +57,7 @@
 				<a href="/crop-Process"><i class="fa-solid fa-seedling"></i><span>Crop Process</span></a>
 				<a href="#"><i class="fa-solid fa-virus"></i></i>Crop Diseases</a>
 				<a href="#" class="active"><i class="fa-solid fa-indian-rupee-sign"></i><span>Crop Prices</span></a>
-				<a href="/buyers-details"><i class="fa-solid fa-store"></i><span>Buyers</span></a>
+				<a href="/buyers-details"><i class="fa-solid fa-store"></i><span>Buyers Details</span></a>
 			</ul>
 
 			<a href="/logout" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>

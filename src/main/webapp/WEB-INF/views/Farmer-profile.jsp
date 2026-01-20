@@ -89,7 +89,7 @@
             <a href="/crop-Process"><i class="fa-solid fa-seedling"></i> Crop Process</a>
             <a href="#"><i class="fa-solid fa-virus"></i> Crop Diseases</a>
             <a href="/Price/farmer"><i class="fa-solid fa-indian-rupee-sign"></i> Crop Prices</a>
-            <a href="/buyers-details"><i class="fa-solid fa-store"></i> Buyers</a>
+            <a href="/buyers-details"><i class="fa-solid fa-store"></i> Buyers Details</a>
         </nav>
 
         <a href="/logout" class="logout-btn">
@@ -139,14 +139,12 @@
                 <!-- PHONE -->
                 <div class="input-group full-width">
                     <label><i class="fas fa-phone"></i> Phone Number</label>
-                    <input type="text"
-                           name="phone"
-                           value="${profile.phone != null ? profile.phone : '+91'}"
-                           minlength="13"
-                           maxlength="13"
-                           pattern="\\+91[0-9]{10}"
-                           placeholder="+91808186XXXX"
-                           required/>
+                    <input type="text" name="phone"
+                    	value="${profile.phone != null ? profile.phone : '+91'}"
+                    	minlength="13" maxlength="13"
+                    	pattern="\+91[0-9]{10}"
+                    	placeholder = "+91808186XXXX"
+                    	required>
                 </div>
 
                 <!-- ADDRESS -->

@@ -1,8 +1,12 @@
 package an.sp.main.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import an.sp.main.entities.UserActivityEntity;
+import an.sp.main.service.AuthService;
+import an.sp.main.service.UserActivityService;
 import an.sp.main.service.buyersFarmerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +30,10 @@ public class MainController {
 
 	@Autowired
 	private  buyersFarmerDetailsService buyersFarmerDetailsService;
+
+	@Autowired
+	private UserActivityService userActivityService;
+
 
 
 	@Value("${weather.api.key}")
@@ -116,11 +124,12 @@ public class MainController {
 		model.addAttribute("profile", profile);
 
 		model.addAttribute("buyers", buyersFarmerDetailsService.getAllBuyers());
-		return "buyers-details";
+		return "Farmers_details";
 	}
 //  This controller used for find the particuler buyers by City & crop name..
 	@GetMapping("/farmer/buyers/search")
 	public String searchBuyers(HttpSession session,
+			@RequestParam(required = false) String name,
 			@RequestParam(required = false) String district,
 			@RequestParam(required = false) String crop,
 			Model model) {
@@ -132,10 +141,10 @@ public class MainController {
 		UserProfile profile = profileService.getProfileByUserId(user.getId());
 		model.addAttribute("profile", profile);
 
-		List<UserProfile> buyers = buyersFarmerDetailsService.searchBuyers(district, crop);
+		List<UserProfile> buyers = buyersFarmerDetailsService.searchBuyers(name,district, crop);
 
 		model.addAttribute("buyers", buyers);
-		return "buyers-details";
+		return "Farmers_details";
 	}
 
 
@@ -194,11 +203,12 @@ public class MainController {
 		model.addAttribute("profile", profile);
 
 		model.addAttribute("farmers", buyersFarmerDetailsService.getAllFarmers());
-		return "farmers-details";
+		return "Buyers_details";
 	}
 	//  This controller used for find the particuler Farmers by City & crop name..
 	@GetMapping("/buyers/farmer/search")
 	public String searchFarmers(HttpSession session,
+								@RequestParam(required = false) String name,
 							   @RequestParam(required = false) String district,
 							   @RequestParam(required = false) String crop,
 							   Model model) {
@@ -210,9 +220,9 @@ public class MainController {
 		UserProfile profile = profileService.getProfileByUserId(user.getId());
 		model.addAttribute("profile", profile);
 
-		List<UserProfile> buyers = buyersFarmerDetailsService.searchBuyers(district, crop);
-		model.addAttribute("buyers", buyers);
-		return "farmers-details";
+		List<UserProfile> buyers = buyersFarmerDetailsService.searchFarmers(name, district, crop);
+		model.addAttribute("farmers", buyers);
+		return "Buyers_details";
 	}
 	
 	
@@ -220,6 +230,12 @@ public class MainController {
 
 	@GetMapping("/logout")
 	public String logout(HttpSession session, Model model) {
+
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user != null && user.getActivity() != null) {
+			user.getActivity().setLastSeen(LocalDateTime.now().minusMinutes(10));
+			userActivityService.saveActivity(user.getActivity());
+		}
 		session.invalidate();
 		model.addAttribute("Successfull", "You have logged out successfully!");
 		return "login"; // JSP page
