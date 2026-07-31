@@ -1,32 +1,26 @@
 package an.sp.main.controller;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-
-import an.sp.main.entities.CropEntity;
-import an.sp.main.service.CropService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
-
-import an.sp.main.entities.UserProfile;
 import an.sp.main.entities.UsersEntity;
-import an.sp.main.entities.buyerCropEntity;
-import an.sp.main.service.ProfileService;
 import an.sp.main.service.UserActivityService;
-import an.sp.main.service.buyersFarmerDetailsService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
 
 	@Autowired
 	private UserActivityService userActivityService;
+
+	@GetMapping("/test")
+	@ResponseBody
+	public String test() {
+		return "AgriSmart is Working";
+	}
 
 	@GetMapping("/")
 	public String openHomePage() {
