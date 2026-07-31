@@ -1,0 +1,393 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+/* ================= VARIABLES ================= */
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #6b7280;
+    --green: #38a169;
+    --blue: #3b82f6;
+    --amber: #f59e0b;
+    --side: #0d1b2a;
+    --sidebar-width: 260px;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* LAYOUT */
+.dashboard {
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--side);
+    color: #fff;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* ================= SIDEBAR CONTENT ================= */
+.brand {
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.brand i {
+    color: var(--green);
+}
+
+.user {
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.profile-photo-img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    transition: 0.3s;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    background: var(--green);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    margin: auto;
+}
+
+.user h3 {
+    font-size: 20px;
+}
+
+.user p {
+    font-size: 15px;
+    color: #9fb2c8;
+}
+
+.menu {
+    margin-top: 10px;
+}
+
+.menu a {
+    display: block;
+    padding: 12px;
+    border-radius: 8px;
+    color: #dfe7ef;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.menu a i {
+    margin-right: 10px;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: var(--green);
+    color: #fff;
+}
+
+.logout-btn {
+    margin-top: auto;
+    padding: 12px;
+    border: none;
+    background: #ef4444;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+
+/* header */
+.top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 20px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 1200;
+    margin-left: 261px;
+}
+
+.toggle-btn {
+    display: none;
+    position: relative;
+    background: #fff;
+    color: var(--side);
+    border: none;
+    font-size: 22px;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    z-index: 1300;
+}
+
+.nav-left {
+    min-width: 0;
+    margin-right: auto;
+}
+
+.nav-left h1 {
+    margin: 0;
+    text-align: left;
+    font-size: 22px;
+    font-weight: 600;
+    color: #0d1b2a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.notification {
+    position: relative;
+    font-size: 23px;
+    color: #555;
+    cursor: pointer;
+}
+
+.notification .dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-profile span {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.user-profile img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+/*header close */
+
+/* ================= MAIN CONTENT ================= */
+.main {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: 20px 25px;
+    transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 992px) {
+    .main {
+        margin-left: 0;
+    }
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .toggle-btn {
+        display: block;
+    }
+
+    .top-nav {
+        margin-left: 0;
+    }
+}
+
+h2 {
+    font-size: 26px;
+}
+
+/* ================= SEARCH ================= */
+.buyer-search-form,
+.farmer-search-form {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0 30px;
+    flex-wrap: wrap;
+}
+
+.search-group {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+
+.search-group input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 200px;
+}
+
+.search-btn {
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ================= CARDS ================= */
+.buyer-card,
+.farmer-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.buyer-info,
+.farmer-info {
+    flex: 1;
+}
+
+.crop {
+    background: #e6f7ee;
+    color: #0a8f5a;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.actions a {
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.call-btn {
+    background: #20c997;
+}
+
+.msg-btn {
+    background: #0d6efd;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+    .buyer-search-form {
+        flex-direction: column;
+    }
+
+    .search-group,
+    .search-group input,
+    .search-btn {
+        width: 100%;
+    }
+
+    .buyer-card,
+    .farmer-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .actions a {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .top-nav {
+        margin-left: 0;
+    }
+
+    .user-profile span {
+        display: none;
+    }
+
+    .nav-left h1 {
+        font-size: 20px;
+    }
+}

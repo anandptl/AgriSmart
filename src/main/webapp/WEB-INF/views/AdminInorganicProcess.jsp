@@ -1,0 +1,206 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart | Admin – Inorganic Process</title>
+    <link rel="stylesheet" href="/css/cropProcess.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+    <div class="dashboard">
+        <% if (session.getAttribute("user")==null) { response.sendRedirect(request.getContextPath() + "/login" );
+            return; } %>
+            <script>
+        				<c:if test="${not empty Successfull}">
+        	                Swal.fire({
+        	                icon: 'success',
+        	                title: 'Success',
+        	                text: '${Successfull}',
+        	                timer: 3000,
+        	                timerProgressBar: true,
+        	                confirmButtonColor: '#3085d6'
+        	                });
+        	              </c:if>
+        	              <c:if test="${not empty Error}">
+        	                Swal.fire({
+        	                icon: 'error',
+        	                title: 'Error',
+        	                text: '${Error}',
+        	                timer: 3000,
+        	                timerProgressBar: true,
+        	                confirmButtonColor: '#d33'
+        	                });
+                      </c:if>
+            </script>
+            <aside class="sidebar">
+                <div class="brand">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span>AgriSmart</span>
+                </div>
+                <div class="user">
+                    <div class="profile-photo-img">
+                        <c:choose>
+                            <c:when test="${not empty profile and not empty profile.profilePhoto}">
+                                <img src="/user/photo/${profile.user.id}" alt="Profile Photo" class="profile-img"
+                                    id="previewImg" />
+                            </c:when>
+                            <c:otherwise>
+                                <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <h3>${user.firstName} ${user.lastName}</h3>
+                    <p>${profile.phone}</p>
+                </div>
+                <ul class="menu">
+                    <a href="/Admin-Dash"><i class="fa-solid fa-house"></i> Dashboard</a>
+                    <a href="/Admin-Users"><i class="fa-solid fa-users"></i> Users</a>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleDropdown('cropSubmenu', this)">
+                            <span><i class="fa-solid fa-seedling"></i> Crops</span>
+                            <i class="fa-solid fa-chevron-down arrow"></i>
+                        </a>
+                        <ul class="submenu" id="cropSubmenu">
+                            <li><a href="/Manage-Crops"><i class="fa-solid fa-gear"></i> Manage Crops</a></li>
+                            <li><a href="/Crops-List"><i class="fa-solid fa-list"></i> Crops List</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-btn active" onclick="toggleDropdown('processSubmenu', this)">
+                            <span><i class="fa-solid fa-arrows-spin"></i> Crop Process</span>
+                            <i class="fa-solid fa-chevron-down arrow"></i>
+                        </a>
+                        <ul class="submenu" id="processSubmenu">
+                            <li><a href="/Admin-Organic-Process" ><i class="fa-solid fa-circle-dot"></i> Organic Process</a></li>
+                            <li><a href="#" class="active"><i class="fa-solid fa-circle-dot"></i> Inorganic Process</a></li>
+                        </ul>
+                    </li>
+                    <a href="/admin/messages"><i class="fa-solid fa-bell"></i> Notification</a>
+                    <a href="/Analysis"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+                    <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+                </ul>
+                <a href="/logout" class="logout-btn"> <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout</a>
+            </aside>
+
+            <main class="main">
+                <!-- headers -->
+                <header class="top-nav">
+                    <button class="toggle-btn" onclick="toggleSidebar()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="nav-left">
+                        <h1>Admin – Inorganic Process</h1>
+                    </div>
+                    <div class="nav-right">
+                        <a href="/admin/messages" class="notification">
+                            <i class="fa-solid fa-bell"></i>
+
+                            <c:if test="${unreadCount > 0}">
+                                <span class="notif-count">${unreadCount}</span>
+                            </c:if>
+                        </a>
+                        <div class="user-profile">
+                            <span>Admin</span>
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Profile">
+                        </div>
+                    </div>
+                </header>
+
+                <div class="card">
+
+                    <!-- TABS -->
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchTab(event,'add')">
+                            <i class="fa fa-plus-circle"></i> Add Crop
+                        </button>
+                        <button class="tab" onclick="switchTab(event,'delete')">
+                            <i class="fa fa-trash"></i> Delete
+                        </button>
+                    </div>
+
+                    <!-- ADD -->
+                    <section id="add" class="tab-box active">
+                        <form action="/admin/process/inorganic/save-all" method="post">
+                            <div class="sec-title green">
+                                <i class="fa fa-leaf"></i> Inorganic Process Details
+                            </div>
+
+                            <div class="field">
+                                <label>Select Crop</label>
+                                <select name="cropId" required>
+                                    <c:forEach var="crop" items="${cropList}">
+                                        <option value="${crop.id}">${crop.cropName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+
+                            <table id="stageTable" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Stage Order</th>
+                                        <th>Stage Name</th>
+                                        <th>Day Range</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stageBody">
+                                    <!-- First Row -->
+                                    <tr>
+                                        <td><input type="number" name="stages[0].stageOrder" required></td>
+                                        <td><input type="text" name="stages[0].stageName" required></td>
+                                        <td><input type="text" name="stages[0].dayRange" required></td>
+                                        <td><input type="text" name="stages[0].description" required></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <button class="addBtn" type="button" onclick="addStage()">+ Add Stage</button>
+
+
+                            <button class="btn primary"><i class="fa-solid fa-floppy-disk"></i> Save All Stages</button>
+
+                        </form>
+                    </section>
+
+                    <section id="delete" class="tab-box">
+                       <form action="/admin/process/inorganic/delete-all" method="post">
+                           <div class="sec-title green">
+                                    <i class="fa fa-leaf"></i> Inorganic Process Details
+                                </div>
+                           <div class="field">
+                               <label>Select Crop</label>
+                               <select name="cropId" required>
+                                   <c:forEach var="crop" items="${cropList}">
+                                   <option value="${crop.id}">${crop.cropName}</option>
+                                   </c:forEach>
+                               </select>
+                           </div>
+
+                       <button class="btn danger"><i class="fa-solid fa-trash"></i> Delete All Stages</button>
+
+                       </form>
+                    </section>
+
+                    <!-- DELETE -->
+
+                </div>
+            </main>
+    </div>
+    <script src="/js/cropProcessMng.js"></script>
+    <script src="/js/toggle.js"></script>
+    <script>
+        
+    </script>
+</body>
+</html>

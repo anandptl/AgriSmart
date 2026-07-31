@@ -1,0 +1,523 @@
+/* ================= ROOT VARIABLES ================= */
+:root {
+    --sidebar-width: 260px;
+    --accent-green: #38a169;
+    --bg-main: #f0f2f5;
+    --sidebar-bg: #0d1b2a;
+    --input-bg: #f8fafc;
+    --label-color: #38a169;
+}
+
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+body {
+    background: var(--bg-main);
+}
+
+.dashboard {
+    /*display: flex;*/
+    min-height: 100vh;
+}
+
+/* sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    color: #fff;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+.profile-photo-img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    transition: 0.3s;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand i {
+    color: var(--accent-green);
+}
+
+.user {
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    background: var(--accent-green);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    margin: auto;
+}
+
+.user h3 {
+    font-size: 20px;
+}
+
+.user p {
+    font-size: 15px;
+    color: #9fb2c8;
+}
+
+/* MENU */
+.menu {
+    margin-top: 10px;
+}
+
+
+.menu a {
+    display: block;
+    padding: 12px;
+    border-radius: 8px;
+    color: #dfe7ef;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.menu a i {
+    margin-right: 10px;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: var(--accent-green);
+    color: #fff;
+}
+
+.logout-btn {
+    margin-top: auto;
+    padding: 12px;
+    border: none;
+    background: #ef4444;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.logout-btn:hover {
+    background: #dc2626;
+    transform: scale(1.03);
+}
+
+/* header */
+.top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 20px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    margin-left: 261px;
+}
+
+.toggle-btn {
+    display: none;
+    position: relative;
+    background: #fff;
+    color: var(--side);
+    border: none;
+    font-size: 22px;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    z-index: 1300;
+}
+
+.nav-left {
+    min-width: 0;
+    margin-right: auto;
+}
+
+.nav-left h1 {
+    margin: 0;
+    text-align: left;
+    font-size: 22px;
+    font-weight: 600;
+    color: #0d1b2a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.notification {
+    position: relative;
+    font-size: 23px;
+    color: #555;
+    cursor: pointer;
+}
+
+.notification .dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-profile span {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.user-profile img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+/*header close */
+
+/* ================= MAIN CONTENT ================= */
+.main {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+/* ================= PROFILE CARD (IMAGE DESIGN) ================= */
+.profile-card {
+    background: #fff;
+    width: 100%;
+    max-width: 850px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+    font-size: 24px;
+    color: #1a202c;
+    margin-bottom: 30px;
+    text-align: center;
+    padding-left: 15px;
+}
+
+/* Photo Preview Styling */
+
+.profile-photo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    transition: 0.3s;
+}
+
+.profile-photo:hover {
+    transform: scale(1.05);
+}
+
+/* Grid Layout for Desktop */
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.crop-input-grid {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.crop-input-grid .input-group {
+    flex: 1;
+    /* 🔥 teeno equal width */
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--label-color);
+    margin-bottom: 10px;
+}
+
+label i {
+    margin-right: 5px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: var(--input-bg);
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    background: #fff;
+}
+
+/* Upload Box */
+.upload-section {
+    margin: 10px 0;
+    background: #f1f5f9;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
+}
+
+.upload-box p {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+/* Save Button */
+.button-row {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.save-btn {
+    background: var(--accent-green);
+    color: #fff;
+    padding: 12px 35px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.save-btn:hover {
+    background: #2f9e5d;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 992px) {
+    .sidebar {
+		transform: translateX(-100%);
+	}
+
+	.sidebar.active {
+		transform: translateX(0);
+	}
+
+	.toggle-btn {
+		display: block;
+	}
+
+	.main {
+		margin-left: 0;
+		padding-top: 20px;
+	}
+
+    .top-nav {
+        margin-left:0;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .main {
+        margin-left: 0;
+        padding: 80px 15px 20px;
+    }
+
+    /* Card phone jaisa */
+    .profile-card {
+        max-width: 668px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 25px 15px;
+    }
+
+    /* 🔥 SAB GRID → SINGLE COLUMN */
+    .input-grid {
+        display: grid;
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+    }
+
+    /* Phone number bhi normal flow me */
+    .input-group.full-width {
+        grid-column: span 1;
+    }
+
+    /* Photo smaller */
+    .profile-photo {
+        width: 90px;
+        height: 90px;
+    }
+
+    /* Button full width */
+    .save-btn {
+        width: 100%;
+    }
+
+    .crop-input-grid {
+        flex-direction: column;
+        /* 🔥 ek ke niche ek */
+        gap: 12px;
+    }
+
+    .crop-input-grid .input-group {
+        width: 100%;
+    }
+
+    .top-nav {
+        margin-left: 0;
+    }
+
+    .toggle-btn {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Sidebar off */
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 80px 15px 20px;
+    }
+
+    /* Card phone jaisa */
+    .profile-card {
+        max-width: 420px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 25px 15px;
+    }
+
+    /* 🔥 SAB GRID → SINGLE COLUMN */
+    .input-grid {
+        display: grid;
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+    }
+
+    /* Phone number bhi normal flow me */
+    .input-group.full-width {
+        grid-column: span 1;
+    }
+
+    /* Photo smaller */
+    .profile-photo {
+        width: 90px;
+        height: 90px;
+    }
+
+    /* Button full width */
+    .save-btn {
+        width: 100%;
+    }
+
+    .crop-input-grid {
+        flex-direction: column;
+        /* 🔥 ek ke niche ek */
+        gap: 12px;
+    }
+
+    .user-profile span {
+        display: none;
+    }
+
+    .nav-left h1 {
+        font-size: 20px;
+    }
+}

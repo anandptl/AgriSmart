@@ -1,0 +1,159 @@
+package an.sp.main.entities;
+
+
+import java.util.Date;
+import java.util.List;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "users")
+public class UsersEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@NotBlank
+	@Column(nullable = false)
+	private String firstName;
+
+	@NotBlank
+	@Column(nullable = false)
+	private String lastName;
+
+	@Column(unique = true, nullable = false)
+	@NotBlank(message = "Email can't be blank")
+	@Email(message = "Invalid email format")
+	private String email;
+
+	@NotBlank
+	@Column(nullable = false)
+	private String password;
+
+	@NotBlank
+	@Column(length = 20)
+	private String language;
+
+	// FARMER / BUYER / ADMIN
+	@NotBlank
+	@Column(nullable = false)
+	private String role;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private UserProfile profile;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private buyerCropEntity buyerCrop;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private UserActivityEntity activity;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private OtpEntity otpDetails;
+
+	@OneToMany(mappedBy = "farmer", cascade = CascadeType.ALL)
+	private List<FarmerCropEntity> farmerCrops;
+
+
+
+// getter & setter
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public UserProfile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(UserProfile profile) {
+		this.profile = profile;
+	}
+
+	public buyerCropEntity getBuyerCrop() {
+		return buyerCrop;
+	}
+
+	public void setBuyerCrop(buyerCropEntity buyerCrop) {
+		this.buyerCrop = buyerCrop;
+	}
+
+	public UserActivityEntity getActivity() {
+		return activity;
+	}
+
+	public void setActivity(UserActivityEntity activity) {
+		this.activity = activity;
+	}
+
+	public OtpEntity getOtpDetails() {
+		return otpDetails;
+	}
+
+	public void setOtpDetails(OtpEntity otpDetails) {
+		this.otpDetails = otpDetails;
+	}
+
+	public List<FarmerCropEntity> getFarmerCrops() {
+		return farmerCrops;
+	}
+
+	public void setFarmerCrops(List<FarmerCropEntity> farmerCrops) {
+		this.farmerCrops = farmerCrops;
+	}
+}
