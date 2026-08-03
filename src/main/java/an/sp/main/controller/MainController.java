@@ -18,6 +18,11 @@ public class MainController {
 	private UserActivityService userActivityService;
 
 
+	@GetMapping("/login-test")
+	public String test() {
+		return "login";
+	}
+
 	@GetMapping("/")
 	@ResponseBody
 	public String openHomePage() {
