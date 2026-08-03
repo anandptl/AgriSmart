@@ -19,6 +19,7 @@ public class MainController {
 
 
 	@GetMapping("/")
+	@ResponseBody
 	public String openHomePage() {
 		return "index";
 	}
