@@ -11,16 +11,12 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+
 public class MainController {
 
 	@Autowired
 	private UserActivityService userActivityService;
 
-	@GetMapping("/test")
-	@ResponseBody
-	public String test() {
-		return "AgriSmart is Working";
-	}
 
 	@GetMapping("/")
 	public String openHomePage() {
