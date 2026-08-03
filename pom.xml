@@ -19,7 +19,7 @@
 		<!-- Java 17 is the required baseline for Spring Boot 3.x -->
 		<java.version>21</java.version>
 	</properties>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<dependencies>
 		<!-- Web -->
 		<dependency>
