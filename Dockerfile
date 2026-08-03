@@ -1,20 +1,20 @@
-#Stage 1: Download the dependencies
-FROM eclipse-temurin:21-jdk-alpine AS dependencies
-RUN apk add --no-cache maven
-WORKDIR /build
-COPY pom.xml .
-RUN mvn dependency:go-offline
+# Stage 1
+FROM maven:3.9.9-eclipse-temurin-21 AS builder
 
-#Stage 2: Build the application
-FROM dependencies AS builder
-COPY src ./src
-RUN mvn clean package -DskipTests
-
-#Stage 3: Run the application
-FROM eclipse-temurin:21-jdk-alpine AS runtime
 WORKDIR /app
 
-COPY --from=builder /build/target/*.jar app.jar
+COPY pom.xml .
+COPY src ./src
 
-#java -jar app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+RUN mvn clean package -DskipTests
+
+# Stage 2
+FROM eclipse-temurin:21-jre
+
+WORKDIR /app
+
+COPY --from=builder /app/target/AgriSmart-0.0.1.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","/app/app.jar"]
